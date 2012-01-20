@@ -1,0 +1,310 @@
+[
+    {
+        "latitude": "43.47877", 
+        "formalname": "Ada County", 
+        "fips": "16001", 
+        "name": "Ada", 
+        "longitude": "-116.24203"
+    }, 
+    {
+        "latitude": "44.98826", 
+        "formalname": "Adams County", 
+        "fips": "16003", 
+        "name": "Adams", 
+        "longitude": "-116.49161"
+    }, 
+    {
+        "latitude": "42.58364", 
+        "formalname": "Bannock County", 
+        "fips": "16005", 
+        "name": "Bannock", 
+        "longitude": "-112.14302"
+    }, 
+    {
+        "latitude": "42.22822", 
+        "formalname": "Bear Lake County", 
+        "fips": "16007", 
+        "name": "Bear Lake", 
+        "longitude": "-111.2845"
+    }, 
+    {
+        "latitude": "47.24378", 
+        "formalname": "Benewah County", 
+        "fips": "16009", 
+        "name": "Benewah", 
+        "longitude": "-116.64994"
+    }, 
+    {
+        "latitude": "43.21123", 
+        "formalname": "Bingham County", 
+        "fips": "16011", 
+        "name": "Bingham", 
+        "longitude": "-112.36241"
+    }, 
+    {
+        "latitude": "43.47434", 
+        "formalname": "Blaine County", 
+        "fips": "16013", 
+        "name": "Blaine", 
+        "longitude": "-113.96644"
+    }, 
+    {
+        "latitude": "43.96048", 
+        "formalname": "Boise County", 
+        "fips": "16015", 
+        "name": "Boise", 
+        "longitude": "-115.85631"
+    }, 
+    {
+        "latitude": "48.27518", 
+        "formalname": "Bonner County", 
+        "fips": "16017", 
+        "name": "Bonner", 
+        "longitude": "-116.59315"
+    }, 
+    {
+        "latitude": "43.45087", 
+        "formalname": "Bonneville County", 
+        "fips": "16019", 
+        "name": "Bonneville", 
+        "longitude": "-111.54553"
+    }, 
+    {
+        "latitude": "48.79876", 
+        "formalname": "Boundary County", 
+        "fips": "16021", 
+        "name": "Boundary", 
+        "longitude": "-116.56271"
+    }, 
+    {
+        "latitude": "43.64482", 
+        "formalname": "Butte County", 
+        "fips": "16023", 
+        "name": "Butte", 
+        "longitude": "-113.18414"
+    }, 
+    {
+        "latitude": "43.50937", 
+        "formalname": "Camas County", 
+        "fips": "16025", 
+        "name": "Camas", 
+        "longitude": "-114.82437"
+    }, 
+    {
+        "latitude": "43.67796", 
+        "formalname": "Canyon County", 
+        "fips": "16027", 
+        "name": "Canyon", 
+        "longitude": "-116.68654"
+    }, 
+    {
+        "latitude": "42.75387", 
+        "formalname": "Caribou County", 
+        "fips": "16029", 
+        "name": "Caribou", 
+        "longitude": "-111.66607"
+    }, 
+    {
+        "latitude": "42.35804", 
+        "formalname": "Cassia County", 
+        "fips": "16031", 
+        "name": "Cassia", 
+        "longitude": "-113.57285"
+    }, 
+    {
+        "latitude": "44.19756", 
+        "formalname": "Clark County", 
+        "fips": "16033", 
+        "name": "Clark", 
+        "longitude": "-112.37555"
+    }, 
+    {
+        "latitude": "46.67757", 
+        "formalname": "Clearwater County", 
+        "fips": "16035", 
+        "name": "Clearwater", 
+        "longitude": "-115.56204"
+    }, 
+    {
+        "latitude": "44.33319", 
+        "formalname": "Custer County", 
+        "fips": "16037", 
+        "name": "Custer", 
+        "longitude": "-114.26143"
+    }, 
+    {
+        "latitude": "43.11543", 
+        "formalname": "Elmore County", 
+        "fips": "16039", 
+        "name": "Elmore", 
+        "longitude": "-115.52645"
+    }, 
+    {
+        "latitude": "42.21003", 
+        "formalname": "Franklin County", 
+        "fips": "16041", 
+        "name": "Franklin", 
+        "longitude": "-111.76147"
+    }, 
+    {
+        "latitude": "44.22427", 
+        "formalname": "Fremont County", 
+        "fips": "16043", 
+        "name": "Fremont", 
+        "longitude": "-111.479"
+    }, 
+    {
+        "latitude": "44.03249", 
+        "formalname": "Gem County", 
+        "fips": "16045", 
+        "name": "Gem", 
+        "longitude": "-116.35892"
+    }, 
+    {
+        "latitude": "42.91806", 
+        "formalname": "Gooding County", 
+        "fips": "16047", 
+        "name": "Gooding", 
+        "longitude": "-114.74943"
+    }, 
+    {
+        "latitude": "45.90195", 
+        "formalname": "Idaho County", 
+        "fips": "16049", 
+        "name": "Idaho", 
+        "longitude": "-115.72374"
+    }, 
+    {
+        "latitude": "43.76409", 
+        "formalname": "Jefferson County", 
+        "fips": "16051", 
+        "name": "Jefferson", 
+        "longitude": "-112.24937"
+    }, 
+    {
+        "latitude": "42.71282", 
+        "formalname": "Jerome County", 
+        "fips": "16053", 
+        "name": "Jerome", 
+        "longitude": "-114.32879"
+    }, 
+    {
+        "latitude": "47.75684", 
+        "formalname": "Kootenai County", 
+        "fips": "16055", 
+        "name": "Kootenai", 
+        "longitude": "-116.62221"
+    }, 
+    {
+        "latitude": "46.73604", 
+        "formalname": "Latah County", 
+        "fips": "16057", 
+        "name": "Latah", 
+        "longitude": "-116.67642"
+    }, 
+    {
+        "latitude": "45.03646", 
+        "formalname": "Lemhi County", 
+        "fips": "16059", 
+        "name": "Lemhi", 
+        "longitude": "-113.92306"
+    }, 
+    {
+        "latitude": "46.26648", 
+        "formalname": "Lewis County", 
+        "fips": "16061", 
+        "name": "Lewis", 
+        "longitude": "-116.40541"
+    }, 
+    {
+        "latitude": "43.04964", 
+        "formalname": "Lincoln County", 
+        "fips": "16063", 
+        "name": "Lincoln", 
+        "longitude": "-114.16944"
+    }, 
+    {
+        "latitude": "43.75083", 
+        "formalname": "Madison County", 
+        "fips": "16065", 
+        "name": "Madison", 
+        "longitude": "-111.55837"
+    }, 
+    {
+        "latitude": "42.841", 
+        "formalname": "Minidoka County", 
+        "fips": "16067", 
+        "name": "Minidoka", 
+        "longitude": "-113.58081"
+    }, 
+    {
+        "latitude": "46.41818", 
+        "formalname": "Nez Perce County", 
+        "fips": "16069", 
+        "name": "Nez Perce", 
+        "longitude": "-116.62288"
+    }, 
+    {
+        "latitude": "42.20598", 
+        "formalname": "Oneida County", 
+        "fips": "16071", 
+        "name": "Oneida", 
+        "longitude": "-112.52451"
+    }, 
+    {
+        "latitude": "42.68274", 
+        "formalname": "Owyhee County", 
+        "fips": "16073", 
+        "name": "Owyhee", 
+        "longitude": "-116.06229"
+    }, 
+    {
+        "latitude": "44.02052", 
+        "formalname": "Payette County", 
+        "fips": "16075", 
+        "name": "Payette", 
+        "longitude": "-116.72054"
+    }, 
+    {
+        "latitude": "42.75285", 
+        "formalname": "Power County", 
+        "fips": "16077", 
+        "name": "Power", 
+        "longitude": "-112.76845"
+    }, 
+    {
+        "latitude": "47.17469", 
+        "formalname": "Shoshone County", 
+        "fips": "16079", 
+        "name": "Shoshone", 
+        "longitude": "-115.91047"
+    }, 
+    {
+        "latitude": "43.78458", 
+        "formalname": "Teton County", 
+        "fips": "16081", 
+        "name": "Teton", 
+        "longitude": "-111.19176"
+    }, 
+    {
+        "latitude": "42.33525", 
+        "formalname": "Twin Falls County", 
+        "fips": "16083", 
+        "name": "Twin Falls", 
+        "longitude": "-114.67589"
+    }, 
+    {
+        "latitude": "44.92047", 
+        "formalname": "Valley County", 
+        "fips": "16085", 
+        "name": "Valley", 
+        "longitude": "-115.79264"
+    }, 
+    {
+        "latitude": "44.36587", 
+        "formalname": "Washington County", 
+        "fips": "16087", 
+        "name": "Washington", 
+        "longitude": "-116.75486"
+    }
+]
