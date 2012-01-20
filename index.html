@@ -38,7 +38,16 @@
 	<!-- Favicons
 	================================================== -->
 	<link rel="icon" href="http://stateimpact.npr.org/texas/wp-content/themes/statewatch/img/favicon.png"/>
-
+    <style>
+        div#data {
+            position: absolute;
+            top: 75px;
+            right: 20px;
+            padding: 1em;
+            background-color: white;
+            z-index: 1000;
+        }
+    </style>
 </head>
 <body>
 
@@ -49,9 +58,11 @@
 	</nav>	
 	<h1 class="map-title">Jobless in Idaho</h1>
 </header>
-
     <div id="map-container">
         <div id="map"></div>
+        <div id="data">
+            <h2>Data goes here</h2>
+        </div>
     </div>
 
 <footer>
@@ -93,6 +104,7 @@
 	<script src="js/underscore-min.js"></script>
 	<script src="js/backbone-min.js"></script>
 	<script src="js/leaflet/leaflet.js"></script>
+	<script src="js/wax/dist/wax.leaf.min.js"></script>
     <script src="js/app.js"></script>
     <script>
     $.getJSON('data/counties.json', function(data) {

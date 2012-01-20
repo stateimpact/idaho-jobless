@@ -2,6 +2,10 @@
 // requires underscore, backbone, jquery, leaflet
 
 (function($) {
+    // setting these up top so I don't have to dig through code later
+    var TILE_URL = "http://a.tiles.mapbox.com/v3/mapbox.world-light.jsonp";
+    var CENTER = new L.LatLng(45.636, -114.598);
+    var ZOOM = 6;
     
     var MONTHS = {
         january: 0,
@@ -58,6 +62,21 @@
         initialize: function(attributes, options) {
             this.normalize(attributes);
             return this;
+        },
+        
+        getMarker: function(options) {
+            if (!this.has('point')) return null;
+            var rate = this;
+            if (!this._marker) {
+                this._marker = new L.CircleMarker(this.get('point'), {
+                    weight: 1,
+                    radius: this.get('unemploymentrate')
+                });
+                this._marker.on('click', function(e) {
+                    console.log('Unemployment in ' + rate.get('area') + ': ' + rate.get('unemploymentrate') + '%');
+                });
+            }
+            return this._marker;
         },
         
         normalize: function(attributes) {
@@ -143,8 +162,28 @@
     window.UnemploymentMap = Backbone.View.extend({
         
         initialize: function(options) {
-            this.map = new L.Map(this.el, options);
+            this.map = map = new L.Map(this.el, options);
+            wax.tilejson(TILE_URL, function(tilejson) {
+                map.addLayer(new wax.leaf.connector(tilejson))
+                .setView(CENTER, ZOOM);
+            });
+            this.markers = new L.LayerGroup();
+            this.map.addLayer(this.markers);
+            return this;
         },
+        
+        plot: function(year, month) {
+            var umap = this;
+            var rates = window.unemploymentrates.getMonth(year, month);
+            this.markers.clearLayers();
+            _.each(rates, function(rate, i) {
+                var marker = rate.getMarker();
+                if (marker) {
+                    umap.markers.addLayer(marker);
+                }
+            });
+            return this;
+        }
         
     })
     
@@ -153,4 +192,5 @@
     // global instances
     window.counties = new CountyCollection;
     window.unemploymentrates = new UnemploymentRateCollection;
+    window.umap = new UnemploymentMap({ el: '#map' });
 })(window.jQuery);
