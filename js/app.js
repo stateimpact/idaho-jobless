@@ -198,7 +198,7 @@
         nextMonth: function() {
             var date = this.currentMonth();
             date.next().month(); // increment the date in place
-            var url = window.app.getUrl(date.getFullYear(), MONTH_NAMES[date.getMonth()]);
+            var url = window.app.getUrl(date.getFullYear(), MONTH_NAMES[date.getMonth()], this.county);
             console.log(url);
             window.app.navigate(url, true);
         },
@@ -206,7 +206,7 @@
         previousMonth: function() {
             var date = this.currentMonth();
             date.previous().month(); // increment the date in place
-            var url = window.app.getUrl(date.getFullYear(), MONTH_NAMES[date.getMonth()]);
+            var url = window.app.getUrl(date.getFullYear(), MONTH_NAMES[date.getMonth()], this.county);
             console.log(url);
             window.app.navigate(url, true);
         },
@@ -217,12 +217,13 @@
             var year = parts[0],
                 month = parts[1],
                 county = parts[2];
+            this.county = county; // just hold onto this for a moment
             return new Date(year, MONTHS[month.toLowerCase()]);
         },
         
         plot: function(year, month) {
             var umap = this;
-            var rates = window.unemploymentrates.getMonth(year, month);
+            var rates = this.collection.getMonth(year, month);
             this.markers.clearLayers();
             _.each(rates, function(rate, i) {
                 var marker = rate.getMarker();
@@ -234,7 +235,7 @@
         },
         
         play: function(start, end) {
-            var months = window.unemploymentrates.getMonths(),
+            var months = this.collection.getMonths(),
                 current = this.currentMonth(),
                 umap = this;
             
@@ -247,12 +248,60 @@
             return this;
         }
         
-    })
+    });
+    
+    var Slider = Backbone.View.extend({
+        
+        initialize: function(options) {
+            var values = this.getValues();
+            this.slider = $(this.el).slider({
+                min: _.min(values),
+                max: _.max(values),
+                step: values.length,
+                animate: true
+            });
+            return this.slideEvents();
+        },
+        
+        slideEvents: function() {
+            // breaking out slide events heres
+            var display = this.$('p span');
+            this.slider.bind('slide', function(e, ui) {
+                var date = new Date(ui.value),
+                    url = app.getUrl(date.getFullYear(), date.toString('MMMM'));
+                display.text(date.toString('MMM yyyy'));
+                app.navigate(url, true);
+            });
+            
+            this.slider.bind('slidechange', function(e, ui) {
+                var date = new Date(ui.value),
+                    url = app.getUrl(date.getFullYear(), date.toString('MMMM'));
+                
+                app.navigate(url, true);
+            });
+            return this;
+        },
+        
+        getValues: function() {
+            var dates = this.collection.getMonths();
+            return _.map(dates, function(d) { return d.valueOf() });
+        },
+        
+        value: function(val) {
+            if (val) {
+                return this.slider.slider('value', val);
+            } else {
+                return this.slider.slider('value');
+            }
+        }
+        
+    });
     
     // router
     var App = Backbone.Router.extend({
         
         initialize: function(options) {
+            this.collection = options.collection || window.unemploymentrates;
             Backbone.history.start({ root: '/' });
             this.navigate(Backbone.history.getFragment());
             return this;
@@ -269,20 +318,20 @@
         },
         
         showMonth: function(year, month) {
-            if (window.unemploymentrates.length) {
+            if (this.collection.length) {
                 window.umap.plot(year, month);
             } else {
-                window.unemploymentrates.bind('reset', function(rates) {
+                this.collection.bind('reset', function(rates) {
                     window.umap.plot(year, month);
                 });
             }
         },
         
         showCounty: function(year, month, county) {
-            if (window.unemploymentrates.length) {
+            if (this.collection.length) {
                 window.umap.plot(year, month);
             } else {
-                window.unemploymentrates.bind('reset', function(rates) {
+                this.collection.bind('reset', function(rates) {
                     window.umap.plot(year, month);
                 });
             }
@@ -297,9 +346,11 @@
     // global instances
     window.counties = new CountyCollection;
     window.unemploymentrates = new UnemploymentRateCollection;
-    window.umap = new UnemploymentMap({ el: '#map' });
+    window.umap = new UnemploymentMap({ el: '#map', collection: window.unemploymentrates });
     
-    $(function() {
-        window.app = new App;
+    window.app = new App({ collection: window.unemploymentrates });
+    window.unemploymentrates.bind('reset', function(rates) {
+        window.slider = new Slider({ el: '#slider', collection: window.unemploymentrates });    
     });
+    
 })(window.jQuery);
