@@ -1,5 +1,5 @@
 // data handling for idaho unemployment
-// requires underscore, backbone, jquery, leaflet
+// requires underscore, backbone, jquery, leaflet, date.js
 
 (function($) {
     // setting these up top so I don't have to dig through code later
@@ -184,6 +184,7 @@
     window.UnemploymentMap = Backbone.View.extend({
         
         initialize: function(options) {
+            _.bindAll(this);
             this.map = map = new L.Map(this.el, options);
             wax.tilejson(TILE_URL, function(tilejson) {
                 map.addLayer(new wax.leaf.connector(tilejson))
@@ -233,7 +234,13 @@
         },
         
         play: function(start, end) {
-            var months = window.unemploymentrates.getMonths();
+            var months = window.unemploymentrates.getMonths(),
+                current = this.currentMonth(),
+                umap = this;
+            
+            // ensure there's only one play action happening
+            this.timeout = clearTimeout(this.timeout);
+            
             start = (start || _.first(months));
             end = (end || _.last(months));
             
