@@ -22,6 +22,11 @@
         december: 11
     }
     
+    var MONTH_NAMES = ["january", "february", "march", 
+     "april", "may", "june", "july", 
+     "august", "september", "october", 
+     "november", "december"]
+    
     var YESNO = {
         yes: true,
         no: false
@@ -73,7 +78,8 @@
                     radius: this.get('unemploymentrate')
                 });
                 this._marker.on('click', function(e) {
-                    console.log('Unemployment in ' + rate.get('area') + ': ' + rate.get('unemploymentrate') + '%');
+                    var route = [rate.get('year'), rate.get('month'), rate.getCounty().get('name')];
+                    window.app.navigate(route.join('/'));
                 });
             }
             return this._marker;
@@ -145,7 +151,21 @@
             return -1 * (rate.get('date') || 0).valueOf();
         },
         
+        getMonths: function() {
+            // return all unique months in this collection
+            var dates = this.pluck('date');
+            return _.unique(dates, true, function(d) { return d.valueOf() });
+        },
+        
         getMonth: function(year, month) {
+            if (_.isDate(year)) {
+                var date = year;
+                return this.filter(function(rate) {
+                    return (rate.get('date').getFullYear() === date.getFullYear()
+                            && rate.get('date').getMonth() === date.getMonth())
+                });
+            }
+            
             return this.filter(function(rate) {
                 return (rate.get('year') == year 
                         && rate.get('month') == month
@@ -172,6 +192,23 @@
             return this;
         },
         
+        nextMonth: function() {
+            
+        },
+        
+        previousMonth: function() {
+            
+        },
+        
+        currentMonth: function() {
+            // get the current month, based on the URL
+            var parts = Backbone.history.fragment.split('/');
+            var year = parts[0],
+                month = parts[1],
+                county = parts[2];
+            return new Date(year, MONTHS[month.toLowerCase()]);
+        },
+        
         plot: function(year, month) {
             var umap = this;
             var rates = window.unemploymentrates.getMonth(year, month);
@@ -183,14 +220,69 @@
                 }
             });
             return this;
+        },
+        
+        play: function(start, end) {
+            var months = window.unemploymentrates.getMonths();
+            start = (start || _.first(months));
+            end = (end || _.last(months));
+            _.each(months, function(month, i) {
+                window.umap.plot(month.getFullYear(), MONTH_NAMES[month.getMonth()]);
+            });
+            
+            return this;
         }
         
     })
     
     // router
+    var App = Backbone.Router.extend({
+        
+        initialize: function(options) {
+            Backbone.history.start({ root: '/' });
+            this.navigate(Backbone.history.getFragment());
+            return this;
+        },
+        
+        routes: {
+            ''                      : 'initial',
+            ':year/:month'          : 'showMonth',
+            ':year/:month/:county'  : 'showCounty'
+        },
+        
+        initial: function() {
+            console.log('initial route');
+        },
+        
+        showMonth: function(year, month) {
+            if (window.unemploymentrates.length) {
+                window.umap.plot(year, month);
+            } else {
+                window.unemploymentrates.bind('reset', function(rates) {
+                    window.umap.plot(year, month);
+                });
+            }
+            
+        },
+        
+        showCounty: function(year, month, county) {
+            if (window.unemploymentrates.length) {
+                window.umap.plot(year, month);
+            } else {
+                window.unemploymentrates.bind('reset', function(rates) {
+                    window.umap.plot(year, month);
+                });
+            }
+            
+        }
+    });
     
     // global instances
     window.counties = new CountyCollection;
     window.unemploymentrates = new UnemploymentRateCollection;
     window.umap = new UnemploymentMap({ el: '#map' });
+    
+    $(function() {
+        window.app = new App;
+    });
 })(window.jQuery);
