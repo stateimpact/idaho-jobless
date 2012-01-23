@@ -22,10 +22,10 @@
         december: 11
     }
     
-    var MONTH_NAMES = ["january", "february", "march", 
-     "april", "may", "june", "july", 
-     "august", "september", "october", 
-     "november", "december"]
+    var MONTH_NAMES = ["January", "February", "March", 
+     "April", "May", "June", "July", 
+     "August", "September", "October", 
+     "November", "December"]
     
     var YESNO = {
         yes: true,
@@ -162,7 +162,9 @@
                 var date = year;
                 return this.filter(function(rate) {
                     return (rate.get('date').getFullYear() === date.getFullYear()
-                            && rate.get('date').getMonth() === date.getMonth())
+                            && rate.get('date').getMonth() === date.getMonth()
+                            && rate.get('adjusted')
+                            && !rate.get('preliminary'));
                 });
             }
             
@@ -193,11 +195,19 @@
         },
         
         nextMonth: function() {
-            
+            var date = this.currentMonth();
+            date.next().month(); // increment the date in place
+            var url = window.app.getUrl(date.getFullYear(), MONTH_NAMES[date.getMonth()]);
+            console.log(url);
+            window.app.navigate(url, true);
         },
         
         previousMonth: function() {
-            
+            var date = this.currentMonth();
+            date.previous().month(); // increment the date in place
+            var url = window.app.getUrl(date.getFullYear(), MONTH_NAMES[date.getMonth()]);
+            console.log(url);
+            window.app.navigate(url, true);
         },
         
         currentMonth: function() {
@@ -226,9 +236,6 @@
             var months = window.unemploymentrates.getMonths();
             start = (start || _.first(months));
             end = (end || _.last(months));
-            _.each(months, function(month, i) {
-                window.umap.plot(month.getFullYear(), MONTH_NAMES[month.getMonth()]);
-            });
             
             return this;
         }
@@ -262,7 +269,6 @@
                     window.umap.plot(year, month);
                 });
             }
-            
         },
         
         showCounty: function(year, month, county) {
@@ -273,7 +279,11 @@
                     window.umap.plot(year, month);
                 });
             }
-            
+        },
+        
+        getUrl: function(year, month, county) {
+            // utility method for getting a paty from args
+            return _.compact([year, month, county]).join('/');
         }
     });
     
