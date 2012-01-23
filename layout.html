@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--><html lang="en"> <!--<![endif]-->
+<head>
+    <script type="text/javascript">var _sf_startpt=(new Date()).getTime()</script>
+	<!-- Basic Page Needs
+  ================================================== -->
+	<meta charset="utf-8">
+
+	<title>StateImpact Idaho | Bringing the Economy Home</title>
+
+	<meta name="description" content="">
+	<meta name="author" content="">
+	<!--[if lt IE 9]>
+		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+
+	<!-- Mobile Specific Metas
+  ================================================== -->
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<script src="http://stateimpact.npr.org/wp-content/themes/stateimpact-hub/js/modernizr-1.6.min.js"></script> 
+	<script type="text/javascript" src="http://use.typekit.com/yey2zgp.js"></script>
+	<script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+
+	<!-- CSS
+  ================================================== -->
+	<link rel="stylesheet" href="css/base.css">
+	<link rel="stylesheet" href="css/skeleton.css">
+	<link rel="stylesheet" href="css/layout.css">
+	<link rel="stylesheet" href="js/leaflet/leaflet.css" type="text/css">
+	<link rel="stylesheet" href="css/map.css" type="text/css" media="screen">
+	<!--[if IE]>
+	<link rel="stylesheet" href="js/leaflet/leaflet.ie.css" type="text/css">
+	<![endif]-->
+	<!-- Favicons
+	================================================== -->
+	<link rel="icon" href="http://stateimpact.npr.org/texas/wp-content/themes/statewatch/img/favicon.png"/>
+</head>
+<body>
+
+<header> 
+	<nav>
+		<h2><a href="http://stateimpact.npr.org">StateImpact</a></h2>
+		<h3><a href="http://stateimpact.npr.org/idaho/">Idaho</a></h3>
+	</nav>	
+	<h1 class="map-title">Jobless in Idaho</h1>
+</header>
+    <div id="container" style="width: 940px; height: 100px; padding-top: 100px; "></div>
+
+<footer>
+	<h3>A reporting project of local public media and <a class="nprlogo" href="http://npr.org" title="Visit npr.org">NPR</a></h3>
+	<ul class="sharing">
+	    <li><a href="https://twitter.com/share" class="twitter-share-button" data-count="none" data-via="NPRStateImpact">Tweet</a></li>
+	    <li><div class="fb-like" data-width="150" data-layout="button_count" data-show-faces="false"></div></li>
+	</ul>
+</footer>
+
+<!-- Modal Overlays -->
+<div id='overlay'></div>
+<div id='modal-embed' class='modal'>
+  <div class='popup' id='popup-embed'>
+    <a href='#' class='icon close'>Close</a>
+    <div class='viewport'>
+      <div class='overview'>
+        <h2>Embed this map</h2>
+        <p>Copy and paste this code into any blog or web page to embed a view of the map:</p>
+        <div class='col'>
+          <div id='embed-code-field'>
+            <input type='text' length='30' value='' id='embed-code' readonly />
+          </div>
+          <p><em>Press <code>Ctrl+C</code> or <code>Command+C</code> to copy the embed code.</em></p>
+          <p>Some blogs or website CMSs filter certain HTML from your content. You may need to set your <code>format</code> or <code>input filter</code>  to <code>none</code> or <code>full HTML</code>.</p>
+          <p>Adjust the map's size by editing the 'width' and 'height' values in the code.</p>
+        </div>
+        <div class='col'>        
+          <div id='embed-ex-image'><img src='img/embed.jpg' alt='Example of a map embedded on a webpage' /></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+	<!-- JS
+	================================================== -->
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+	<script src="js/underscore-min.js"></script>
+	<script src="js/backbone-min.js"></script>
+	<script src="js/leaflet/leaflet.js"></script>
+	<script src="js/wax/dist/wax.leaf.min.js"></script>
+  <script src="js/highcharts.js"></script>
+  <script>
+    var chart;
+    $(document).ready(function() {
+     chart = new Highcharts.Chart({
+        chart: {
+           renderTo: 'container',
+           height: 150,
+           width: 940,
+           defaultSeriesType: 'spline',
+           marginLeft: 0,
+           marginRight: 0
+        },
+        colors: ['#d8472b','#17807e'],          
+        credits: {
+          text: null
+        },
+        title: {
+           text: null
+        },
+        legend: {
+            enabled: false
+        },
+        xAxis: {
+           labels: false,
+           tickInterval: 1,
+           minPadding: 0.001,
+           maxPadding: 0.001
+        },
+        yAxis: {
+           labels: {
+              enabled: false,
+           },
+           gridLineColor: '#dddddd',
+           title: {
+             text: null
+           },
+           tickInterval: 1
+        },
+        tooltip: {
+          crosshairs: true,
+          shared: true,
+          borderWidth: 0,
+          borderRadius: 0,
+          formatter: function() {
+            var s = '<b>'+ this.points[0].name +'</b>';
+            
+            $.each(this.points, function(i, point) {
+                s += '<br/><b>'+ point.series.name +'</b>: '+
+                    point.y +'%';
+            });
+            
+            return s;
+          },
+          shared: true
+        },
+        plotOptions: {
+           spline: {
+              lineWidth: 1.5,
+              marker: {
+                 radius: 4,
+                 lineColor: '#666666',
+                 lineWidth: 1
+              },
+              shadow: false
+           }
+        },
+        symbol: null,
+        series: [{
+         name: 'Idaho',
+         marker:{
+           radius: 0,
+           symbol: null
+         },
+         data: [{name:"Jan. 2006",y:4.7},
+{name:"Feb. 2006",y:4.8},
+{name:"Mar. 2006",y:4.7},
+{name:"Apr. 2006",y:4.7},
+{name:"May 2006",y:4.6},
+{name:"June 2006",y:4.6},
+{name:"July 2006",y:4.7},
+{name:"Aug. 2006",y:4.7},
+{name:"Sept. 2006",y:4.5},
+{name:"Oct. 2006",y:4.4},
+{name:"Nov. 2006",y:4.5},
+{name:"Dec. 2006",y:4.4},
+{name:"Jan. 2007",y:4.6},
+{name:"Feb. 2007",y:4.5},
+{name:"Mar. 2007",y:4.4},
+{name:"Apr. 2007",y:4.5},
+{name:"May 2007",y:4.4},
+{name:"June 2007",y:4.6},
+{name:"July 2007",y:4.7},
+{name:"Aug. 2007",y:4.6},
+{name:"Sept. 2007",y:4.7},
+{name:"Oct. 2007",y:4.7},
+{name:"Nov. 2007",y:4.7},
+{name:"Dec. 2007",y:5.0},
+{name:"Jan. 2008",y:5.0},
+{name:"Feb. 2008",y:4.9},
+{name:"Mar. 2008",y:5.1},
+{name:"Apr. 2008",y:5.0},
+{name:"May 2008",y:5.4},
+{name:"June 2008",y:5.6},
+{name:"July 2008",y:5.8},
+{name:"Aug. 2008",y:6.1},
+{name:"Sept. 2008",y:6.1},
+{name:"Oct. 2008",y:6.5},
+{name:"Nov. 2008",y:6.8},
+{name:"Dec. 2008",y:7.3},
+{name:"Jan. 2009",y:7.8},
+{name:"Feb. 2009",y:8.3},
+{name:"Mar. 2009",y:8.7},
+{name:"Apr. 2009",y:8.9},
+{name:"May 2009",y:9.4},
+{name:"June 2009",y:9.5},
+{name:"July 2009",y:9.5},
+{name:"Aug. 2009",y:9.6},
+{name:"Sept. 2009",y:9.8},
+{name:"Oct. 2009",y:10.0},
+{name:"Nov. 2009",y:9.9},
+{name:"Dec. 2009",y:9.9},
+{name:"Jan. 2010",y:9.7},
+{name:"Feb. 2010",y:9.8},
+{name:"Mar. 2010",y:9.8},
+{name:"Apr. 2010",y:9.9},
+{name:"May 2010",y:9.6},
+{name:"June 2010",y:9.4},
+{name:"July 2010",y:9.5},
+{name:"Aug. 2010",y:9.6},
+{name:"Sept. 2010",y:9.5},
+{name:"Oct. 2010",y:9.5},
+{name:"Nov. 2010",y:9.8},
+{name:"Dec. 2010",y:9.4},
+{name:"Jan. 2011",y:9.1},
+{name:"Feb. 2011",y:9.0},
+{name:"Mar. 2011",y:8.9},
+{name:"Apr. 2011",y:9.0},
+{name:"May 2011",y:9.0},
+{name:"June 2011",y:9.1},
+{name:"July 2011",y:9.1},
+{name:"Aug. 2011",y:9.1},
+{name:"Sept. 2011",y:9.0},
+{name:"Oct. 2011",y:8.9},
+{name:"Nov. 2011",y:8.7}]
+   
+      }, {
+         name: 'US',
+         marker:{
+           radius: 0,
+           symbol: null
+         },
+         data: [{name: "Jan. 2006",y: 3.3},
+{name: "Feb. 2006",y: 3.2},
+{name: "Mar. 2006",y: 3.2},
+{name: "Apr. 2006",y: 3.1},
+{name: "May. 2006",y: 3.1},
+{name: "Jun. 2006",y: 3},
+{name: "Jul. 2006",y: 3},
+{name: "Aug. 2006",y: 2.9},
+{name: "Sep. 2006",y: 2.8},
+{name: "Oct. 2006",y: 2.8},
+{name: "Nov. 2006",y: 2.7},
+{name: "Dec. 2006",y: 2.7},
+{name: "Jan. 2007",y: 2.7},
+{name: "Feb. 2007",y: 2.7},
+{name: "Mar. 2007",y: 2.7},
+{name: "Apr. 2007",y: 2.7},
+{name: "May. 2007",y: 2.7},
+{name: "Jun. 2007",y: 2.8},
+{name: "Jul. 2007",y: 2.8},
+{name: "Aug. 2007",y: 2.9},
+{name: "Sep. 2007",y: 3},
+{name: "Oct. 2007",y: 3.1},
+{name: "Nov. 2007",y: 3.2},
+{name: "Dec. 2007",y: 3.3},
+{name: "Jan. 2008",y: 3.5},
+{name: "Feb. 2008",y: 3.6},
+{name: "Mar. 2008",y: 3.8},
+{name: "Apr. 2008",y: 4},
+{name: "May. 2008",y: 4.3},
+{name: "Jun. 2008",y: 4.6},
+{name: "Jul. 2008",y: 4.9},
+{name: "Aug. 2008",y: 5.1},
+{name: "Sep. 2008",y: 5.4},
+{name: "Oct. 2008",y: 5.7},
+{name: "Nov. 2008",y: 5.9},
+{name: "Dec. 2008",y: 6.2},
+{name: "Jan. 2009",y: 6.4},
+{name: "Feb. 2009",y: 6.7},
+{name: "Mar. 2009",y: 6.9},
+{name: "Apr. 2009",y: 7.1},
+{name: "May. 2009",y: 7.3},
+{name: "Jun. 2009",y: 7.6},
+{name: "Jul. 2009",y: 7.9},
+{name: "Aug. 2009",y: 8.1},
+{name: "Sep. 2009",y: 8.3},
+{name: "Oct. 2009",y: 8.5},
+{name: "Nov. 2009",y: 8.7},
+{name: "Dec. 2009",y: 8.8},
+{name: "Jan. 2010",y: 8.9},
+{name: "Feb. 2010",y: 9},
+{name: "Mar. 2010",y: 9},
+{name: "Apr. 2010",y: 9.1},
+{name: "May. 2010",y: 9.2},
+{name: "Jun. 2010",y: 9.3},
+{name: "Jul. 2010",y: 9.4},
+{name: "Aug. 2010",y: 9.4},
+{name: "Sep. 2010",y: 9.5},
+{name: "Oct. 2010",y: 9.6},
+{name: "Nov. 2010",y: 9.6},
+{name: "Dec. 2010",y: 9.7},
+{name: "Jan. 2011",y: 9.7},
+{name: "Feb. 2011",y: 9.7},
+{name: "Mar. 2011",y: 9.7},
+{name: "Apr. 2011",y: 9.6},
+{name: "May. 2011",y: 9.4},
+{name: "Jun. 2011",y: 9.4},
+{name: "Jul. 2011",y: 9.4},
+{name: "Aug. 2011",y: 9.2},
+{name: "Sep. 2011",y: 9},
+{name: "Oct. 2011",y: 8.8},
+{name: "Nov. 2011",y: 8.5}]
+      }]
+   });
+     
+     
+    });
+  </script>
+
+<!-- End Document
+================================================== -->
+</body>
+</html>
