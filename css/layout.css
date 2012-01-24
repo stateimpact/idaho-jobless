@@ -17,8 +17,29 @@
 /* #Site Styles
 ================================================== */
 
+article header h1 { font-size: 36px; line-height: 1.1; color: #000; }
+article header p { font-size: 18px; }
+article section { border-top: 1px solid #ccc; padding-top: 10px; }
+article .section-hed { font-size: 18px; line-height: 1.1; font-weight: normal; text-transform: uppercase; color: #000; }
+
+.graphic h3 { font-size: 14px; text-transform: uppercase; font-weight: normal; color: #999; line-height: 1; }
 .highcharts-tooltip text tspan { font-family: proxima-nova,sans-serif !important; font-size: 14px !important; }
 
+.data table { width: 100%; }
+.data thead th { font-size: 36px; line-height: 1.1; }
+.data th { text-align: left; }
+.data tbody td,
+.data tbody th { width: 50%; }
+.data tbody td { font-size: 24px; padding: 5px 0; }
+.data tbody th { font-size: 14px; color: #999; }
+.data .section th { padding: 20px 0 5px; border-bottom: 1px solid #ccc; font-size: 18px; text-transform: uppercase; color: #333; width: 100%; }
+.data tbody .rate td { font-size: 42px; line-height: 1; }
+
+.profiles p { font-size: 14px; }
+.profile img { float: left; margin: 0 10px 10px 0; }
+.profile h3 { font-size: 18px; line-height: 1.1; text-decoration: none; margin: 0 0 5px 0; }
+.profile h3 a { text-decoration: none; }
+.profile p { font-size: 14px; line-height: 1.2; }
 
 /* #Page Styles
 ================================================== */

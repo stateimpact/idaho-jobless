@@ -1,19 +1,19 @@
 html { margin: 0; overflow: hidden; }
-body { font-family: proxima-nova-extra-condensed; font-size: 18px; }
-header { 
+body { font-family: proxima-nova; font-size: 16px; }
+.si-nav { 
     background: transparent url(../img/nav-bg.png) repeat-x; 
+    font-family: proxima-nova-extra-condensed; font-size: 18px;
     height: 50px; 
     line-height: 50px;
     margin-bottom: 0; 
     -webkit-font-smoothing: antialiased;
     overflow: visible;
     width: 100%; 
-    margin: 0 auto; 
-    padding-left: 200px;
-    position: absolute;
+    margin: 0 auto 20px; 
+    position: relative;
     z-index: 500;
   }
-header h2 a, .logo a { 
+.si-nav h2 a, .logo a { 
     display: block; 
     margin: 0;
     background: url(../img/logo.png) no-repeat; 
@@ -25,22 +25,22 @@ header h2 a, .logo a {
     top: -10px;
     left: 10px;
 }
-header h3, header h2 { margin: 0; }
+.si-nav h3, .si-nav h2 { margin: 0; }
 
-header h3 a, header h3 a:hover, header h3 a:visited { 
+.si-nav h3 a, .si-nav h3 a:hover, .si-nav h3 a:visited { 
     display: block; 
     float: left;  
     font: 400 32px/50px proxima-nova,sans-serif; 
     color: #fff; 
     text-decoration: none; 
-    padding: 0 15px 0 0; 
+    padding: 0 15px 0 200px; 
     margin: 0 0 0 10px; 
     border-right: 1px solid #444; 
     -webkit-box-shadow: 1px 0 0 #000;
        -moz-box-shadow: 1px 0 0 #000;
             box-shadow: 1px 0 0 #000;
 }
-header h1 { display: block; float: left; line-height: 50px; color: #fff; font-weight: 700; font-size: 32px; margin: 0 0 0 15px;  }
+.si-nav h1 { display: block; float: left; line-height: 50px; color: #fff; font-weight: 700; font-size: 32px; margin: 0 0 0 15px;  }
 
 #map { 
     position: absolute;
