@@ -275,13 +275,9 @@
         slideEvents: function() {
             // breaking out slide events heres
             var county, display = this.$('p span');
-            if (Backbone.history) {
-                county = Backbone.history.getFragment().split('/')[2];
-            } else {
-                county = location.hash.split('/')[2];
-            }
             this.slider.bind('slide', function(e, ui) {
                 var date = new Date(ui.value),
+                    county = location.hash.split('/')[2],
                     url = app.getUrl(date.getFullYear(), date.toString('MMMM'), county);
                 display.text(date.toString('MMM yyyy'));
                 app.navigate(url, true);
@@ -319,6 +315,113 @@
             }
         }
         
+    });
+    
+    var Chart = Backbone.View.extend({
+        
+        initialize: function(options) {
+            _.bindAll(this);
+            this.el = $(this.id)[0];
+            if (this.collection.length) {
+                this.makeChart();
+            } else {
+                var chart = this;
+                this.collection.bind('reset', function(models) {
+                    chart.makeChart();
+                });
+            }
+            return this;
+        },
+        
+        makeChart: function() {
+            this.hichart = new Highcharts.Chart(this.chartOptions());
+            return this;
+        },
+        
+        getMonths: function() {
+            var dates = this.collection.getMonths();
+            return _.map(dates, function(d) { return d.toString('MMM yyyy'); });
+        },
+        
+        chartOptions: function() {
+            // default options for charts
+            // data is deliberately left out and handled with methods
+            return {
+                chart: {
+                    renderTo: this.id,
+                    height: 100,
+                    width: 940,
+                    defaultSeriesType: 'spline',
+                    marginLeft: 0,
+                    marginRight: 0
+                },
+                colors: ['#d8472b','#17807e'],          
+                credits: {
+                    text: null
+                },
+                title: {
+                    text: null
+                },
+                legend: {
+                    enabled: false
+                },
+                xAxis: {
+                    categories: this.getMonths(),
+                    labels: false,
+                    tickInterval: 1,
+                    tickmarkPlacement: 'on',
+                    minPadding: 0.001,
+                    maxPadding: 0.001
+                },
+                yAxis: {
+                    labels: {
+                        enabled: false,
+                    },
+                    gridLineColor: '#eeeeee',
+                    title: {
+                        text: null
+                    },
+                    tickInterval: 1
+                },
+                tooltip: {
+                    crosshairs: true,
+                    shared: true,
+                    borderWidth: 0,
+                    borderRadius: 0,
+                    shared: true,
+                    formatter: function() {
+                        var s = '<b>'+ this.x +'</b>';
+
+                        _.each(this.points, function(point, i, points) {
+                            s += '<br/><span style="font-weight: bold; color:' + point.series.color + ';">' + point.series.name +':</span> '+
+                            point.y +'%';
+                        });
+
+                        return s;
+                    }
+                },
+                plotOptions: {
+                    spline: {
+                        lineWidth: 1.5,
+                        marker: {
+                            radius: 4,
+                            lineColor: '#666666',
+                            lineWidth: 1
+                        },
+                        shadow: false,
+                        states: {
+                            hover: {
+                                lineWidth: 1.5
+                            }
+                        },
+                        events: {
+                            click: null
+                        }
+                    }
+                },
+                symbol: null
+            }
+        }
     });
     
     // router
@@ -394,12 +497,12 @@
     // global instances
     window.counties = new CountyCollection;
     window.unemploymentrates = new UnemploymentRateCollection;
-    window.umap = new UnemploymentMap({ el: '#map', collection: window.unemploymentrates });
+    window.umap = new UnemploymentMap({ el: '#map', collection: window.unemploymentrates, scrollWheelZoom: false });
     window.slider = new Slider({ el: '#slider', collection: window.unemploymentrates });
+    window.hichart = new Chart({ id: 'chart', collection: window.unemploymentrates });
     window.app = new App({ collection: window.unemploymentrates });
     
     Backbone.history.start({ root: '/' });
-    // this.navigate(Backbone.history.getFragment());
     window.app.bind('route:showCounty', function(year, month, county) {
         console.log([year, month, county]);
     });

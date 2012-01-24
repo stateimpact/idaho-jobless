@@ -31,7 +31,6 @@
 	<link rel="stylesheet" href="css/skeleton.css">
 	<link rel="stylesheet" href="css/layout.css">
 	<link rel="stylesheet" href="js/leaflet/leaflet.css" type="text/css">
-	<link rel="stylesheet" href="css/ui-lightness/jquery-ui-1.8.17.custom.css" type="text/css">
 	<link rel="stylesheet" href="css/map.css" type="text/css" media="screen">
 	<!--[if IE]>
 	<link rel="stylesheet" href="js/leaflet/leaflet.ie.css" type="text/css">
@@ -39,45 +38,101 @@
 	<!-- Favicons
 	================================================== -->
 	<link rel="icon" href="http://stateimpact.npr.org/texas/wp-content/themes/statewatch/img/favicon.png"/>
-    <style>
-        div#data {
-            position: absolute;
-            top: 75px;
-            right: 20px;
-            padding: 1em;
-            background-color: white;
-            z-index: 1000;
-        }
-        
-        div#slider {
-            position: absolute;
-            top: 100px;
-            left: 75px;
-            padding: 1em;
-            z-index: 1000;
-            background-color: white;
-            min-width: 300px;
-        }
-    </style>
 </head>
 <body>
 
-<header> 
-	<nav>
-		<h2><a href="http://stateimpact.npr.org">StateImpact</a></h2>
-		<h3><a href="http://stateimpact.npr.org/idaho/">Idaho</a></h3>
-	</nav>	
-	<h1 class="map-title">Jobless in Idaho</h1>
+<header class="si-nav">
+  <div class="container"> 
+  	<nav>
+  		<h2><a href="http://stateimpact.npr.org">StateImpact</a></h2>
+  		<h3><a href="http://stateimpact.npr.org/idaho/">Idaho</a></h3>
+  	</nav>	
+  </div>
 </header>
-    <div id="slider">
-        <p>Slider showing date: <span></span></p>
-    </div>
-    <div id="map-container">
-        <div id="map"></div>
-        <div id="data">
-            <h2>Data goes here</h2>
+    <article id="container" class="container">
+      <header class="row">
+        <h1 class="four columns">Mapping Idaho's Unemployment</h1>
+        <p class="intro eight columns">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. </p>
+      </header>
+      
+      <div class="four columns">
+        <section class="profiles">
+          <h2 class="section-hed">Stories of Idaho's Jobless</h2>
+          <p>Read the stories of a few of the thousands left jobless in Idaho, or <a href="#">share your story</a>.
+
+          <div class="profile">
+            <a href="#"><img src="http://stateimpact.npr.org/idaho/files/2011/11/JustyWEB1-150x150.jpg" width="100" height="100"></a>
+            <h3><a href="#">Justy Thomas</a></h3>
+            <p>“They wouldn’t even look at or consider me unless I had a four-year degree.”</p>
+          </div>
+        </section>
+        <div class="clearfix"></div>
+        <section class="coverage">
+           <h2 class="section-hed">More Jobless Coverage</h2>
+           <ul>
+            <li><a href="#">Headline goes here</a></li>
+            <li><a href="#">Headline goes here</a></li>
+           </ul>
+        </section>
+      </div>
+      <section class="graphic eight columns">
+        <h2 class="section-hed">Unemployment Rate</h2>
+        <h3>January 2006 &#151; December 2011</h3>
+        <div id="slider">Slider here</div>
+        <div id="chart"></div>
+
+        <div id="map" class="four columns alpha" style="height: 469px; background: #ddd;"></div>
+        <div class="data four columns omega">
+          <table>
+            <thead>
+              <tr>
+                <th colspan="2">August 2008</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="section rate">
+                <th colspan="2">Unemployment Rate</th>
+              </tr>
+              <tr>
+                <th>Idaho</th>
+                <th>Washington County</th>
+              </tr>
+              <tr class="rate">
+                <td>11.4%</td>
+                <td>10.5%</td>
+              </tr>
+              <tr class="section workforce">
+                <th colspan="2">Total Workforce</th>
+              </tr>
+              <tr>
+                <th>Idaho</th>
+                <th>Washington County</th>
+              </tr>
+              <tr>
+                <td>760,096</td>
+                <td>7,353</td>
+              </tr>
+              <tr class="section unemployed">
+                <th colspan="2">Unemployed</th>
+              </tr>
+              <tr>
+                <th>Idaho</th>
+                <th>Washington County</th>
+              </tr>
+              <tr>
+                <td>38,927</td>
+                <td>840</td>
+              </tr>
+            </tbody>
+          </table>
+
         </div>
-    </div>
+
+      </section>
+
+
+
+    </article>
 
 <footer>
 	<h3>A reporting project of local public media and <a class="nprlogo" href="http://npr.org" title="Visit npr.org">NPR</a></h3>
@@ -121,6 +176,7 @@
 	<script src="js/leaflet/leaflet.js"></script>
 	<script src="js/wax/dist/wax.leaf.min.js"></script>
 	<script src="js/date.js"></script>
+	<script src="js/highcharts.js"></script>
     <script src="js/app.js"></script>
     <script>
     $.getJSON('data/counties.json', function(data) {
