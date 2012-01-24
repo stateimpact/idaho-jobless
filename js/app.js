@@ -87,7 +87,7 @@
         
         normalize: function(attributes) {
             // bulk normalizing
-            changes = {};
+            var changes = {};
             if (attributes.latitude && attributes.longitude) {
                 var point = new L.LatLng(parseFloat(attributes.latitude), parseFloat(attributes.longitude));
                 changes.point = point;
@@ -151,9 +151,32 @@
             return -1 * (rate.get('date') || 0).valueOf();
         },
         
+        getArea: function(area) {
+            return this.filter(function(rate) {
+                return (rate.get('area') === area
+                        && rate.get('adjusted')
+                        && !rate.get('preliminary'));
+            });
+        },
+        
+        getNational: function() {
+            return this.getArea('United States');
+        },
+        
+        getIdaho: function() {
+            return this.getArea('Idaho');
+        },
+        
         getMonths: function() {
             // return all unique months in this collection
             var dates = this.pluck('date');
+            return _.unique(dates, true, function(d) { return d.valueOf() });
+        },
+        
+        getCountyMonths: function() {
+            // return unemployment rates for months with county rates
+            var rates = this.filter(function(rate) { return !!rate.get('fips') && !rate.get('prelimintary') }),
+                dates = _.map(rates, function(rate) {return rate.get('date')});
             return _.unique(dates, true, function(d) { return d.valueOf() });
         },
         
@@ -334,13 +357,52 @@
         },
         
         makeChart: function() {
-            this.hichart = new Highcharts.Chart(this.chartOptions());
+            this.chart = new Highcharts.Chart(this.chartOptions());
+            this.plot();
             return this;
         },
         
         getMonths: function() {
             var dates = this.collection.getMonths();
             return _.map(dates, function(d) { return d.toString('MMM yyyy'); });
+        },
+        
+        clear: function() {
+            if (this.chart) {
+                _.each(this.chart.series, function(s) { s.remove(false); });                
+            }
+        },
+        
+        plot: function() {
+            this.clear();
+            // national
+            var national = this.collection.getNational();
+            this.chart.addSeries({
+                type: 'spline',
+                data: _.map(national, function(rate) { return rate.get('unemploymentrate') }),
+                name: 'United States',
+                marker:{
+                  radius: 0,
+                  symbol: null
+                }
+            });
+            
+            var idaho = this.collection.getIdaho();
+            // idaho
+            this.chart.addSeries({
+                type: 'spline',
+                data: _.map(idaho, function(rate) { return rate.get('unemploymentrate') }),
+                name: 'Idaho',
+                marker:{
+                  radius: 0,
+                  symbol: null
+                }
+            });
+            
+            // county
+            var county = app.getCounty();
+            
+            return this;
         },
         
         chartOptions: function() {
@@ -355,7 +417,7 @@
                     marginLeft: 0,
                     marginRight: 0
                 },
-                colors: ['#d8472b','#17807e'],          
+                colors: ['#d8472b','#17807e'],
                 credits: {
                     text: null
                 },
