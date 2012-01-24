@@ -253,6 +253,7 @@
     var Slider = Backbone.View.extend({
         
         initialize: function(options) {
+            _.bindAll(this);
             var values = this.getValues();
             this.slider = $(this.el).slider({
                 min: _.min(values),
@@ -265,21 +266,25 @@
         
         slideEvents: function() {
             // breaking out slide events heres
-            var display = this.$('p span');
+            var display = this.$('p span'),
+                county = Backbone.history.getFragment().split('/')[2];
             this.slider.bind('slide', function(e, ui) {
                 var date = new Date(ui.value),
-                    url = app.getUrl(date.getFullYear(), date.toString('MMMM'));
+                    url = app.getUrl(date.getFullYear(), date.toString('MMMM'), county);
                 display.text(date.toString('MMM yyyy'));
                 app.navigate(url, true);
             });
-            
-            this.slider.bind('slidechange', function(e, ui) {
-                var date = new Date(ui.value),
-                    url = app.getUrl(date.getFullYear(), date.toString('MMMM'));
-                
-                app.navigate(url, true);
-            });
             return this;
+        },
+        
+        currentMonth: function() {
+            // get the current month, based on the URL
+            var parts = Backbone.history.fragment.split('/');
+            var year = parts[0],
+                month = parts[1],
+                county = parts[2];
+            this.county = county; // just hold onto this for a moment
+            return new Date(year, MONTHS[month.toLowerCase()]);
         },
         
         getValues: function() {
@@ -318,21 +323,27 @@
         },
         
         showMonth: function(year, month) {
+            var date = this.getDate();
             if (this.collection.length) {
                 window.umap.plot(year, month);
+                //window.slider.value(date.valueOf());
             } else {
                 this.collection.bind('reset', function(rates) {
                     window.umap.plot(year, month);
+                    window.slider.value(date.valueOf());
                 });
             }
         },
         
         showCounty: function(year, month, county) {
+            var date = this.getDate();
             if (this.collection.length) {
                 window.umap.plot(year, month);
+                //window.slider.value(date.valueOf());
             } else {
                 this.collection.bind('reset', function(rates) {
                     window.umap.plot(year, month);
+                    // window.slider.value(date.valueOf());
                 });
             }
         },
@@ -340,6 +351,26 @@
         getUrl: function(year, month, county) {
             // utility method for getting a paty from args
             return _.compact([year, month, county]).join('/');
+        },
+        
+        getDate: function() {
+            // get the current month, based on the URL
+            var parts = Backbone.history.fragment.split('/');
+            var year = parts[0],
+                month = parts[1];
+                
+            return new Date(year, MONTHS[month.toLowerCase()]);
+        },
+        
+        getCounty: function() {
+            // get the current month, based on the URL
+            var parts = Backbone.history.fragment.split('/');
+            var year = parts[0],
+                month = parts[1],
+                county = parts[2];
+            return window.counties.filter(function(c) {
+                return c.get('name') === county;
+            })[0];
         }
     });
     
