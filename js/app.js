@@ -199,7 +199,6 @@
             var date = this.currentMonth();
             date.next().month(); // increment the date in place
             var url = window.app.getUrl(date.getFullYear(), MONTH_NAMES[date.getMonth()], this.county);
-            console.log(url);
             window.app.navigate(url, true);
         },
         
@@ -207,7 +206,6 @@
             var date = this.currentMonth();
             date.previous().month(); // increment the date in place
             var url = window.app.getUrl(date.getFullYear(), MONTH_NAMES[date.getMonth()], this.county);
-            console.log(url);
             window.app.navigate(url, true);
         },
         
@@ -254,36 +252,57 @@
         
         initialize: function(options) {
             _.bindAll(this);
+            var view = this;
+            this.slider = $(this.el).slider(this.slideOpts());            
+            this.collection.bind('reset', function(models) {
+                // reset options when the collection changes
+                view.slider.slider('option', view.slideOpts());
+            });
+            
+            return this.slideEvents();
+        },
+        
+        slideOpts: function() {
             var values = this.getValues();
-            this.slider = $(this.el).slider({
+            return {
                 min: _.min(values),
                 max: _.max(values),
                 step: values.length,
                 animate: true
-            });
-            return this.slideEvents();
+            };
         },
         
         slideEvents: function() {
             // breaking out slide events heres
-            var display = this.$('p span'),
+            var county, display = this.$('p span');
+            if (Backbone.history) {
                 county = Backbone.history.getFragment().split('/')[2];
+            } else {
+                county = location.hash.split('/')[2];
+            }
             this.slider.bind('slide', function(e, ui) {
                 var date = new Date(ui.value),
                     url = app.getUrl(date.getFullYear(), date.toString('MMMM'), county);
                 display.text(date.toString('MMM yyyy'));
                 app.navigate(url, true);
             });
+                        
             return this;
         },
         
         currentMonth: function() {
             // get the current month, based on the URL
-            var parts = Backbone.history.fragment.split('/');
+            var parts;
+            if (Backbone.history) {
+                parts = Backbone.history.fragment.split('/');
+            } else {
+                parts = location.hash.replace('#', '').split('/');
+            }
             var year = parts[0],
                 month = parts[1],
                 county = parts[2];
             this.county = county; // just hold onto this for a moment
+            
             return new Date(year, MONTHS[month.toLowerCase()]);
         },
         
@@ -307,8 +326,6 @@
         
         initialize: function(options) {
             this.collection = options.collection || window.unemploymentrates;
-            Backbone.history.start({ root: '/' });
-            this.navigate(Backbone.history.getFragment());
             return this;
         },
         
@@ -368,9 +385,9 @@
             var year = parts[0],
                 month = parts[1],
                 county = parts[2];
-            return window.counties.filter(function(c) {
+            return window.counties.find(function(c) {
                 return c.get('name') === county;
-            })[0];
+            });
         }
     });
     
@@ -378,10 +395,14 @@
     window.counties = new CountyCollection;
     window.unemploymentrates = new UnemploymentRateCollection;
     window.umap = new UnemploymentMap({ el: '#map', collection: window.unemploymentrates });
-    
+    window.slider = new Slider({ el: '#slider', collection: window.unemploymentrates });
     window.app = new App({ collection: window.unemploymentrates });
-    window.unemploymentrates.bind('reset', function(rates) {
-        window.slider = new Slider({ el: '#slider', collection: window.unemploymentrates });    
+    
+    Backbone.history.start({ root: '/' });
+    // this.navigate(Backbone.history.getFragment());
+    window.app.bind('route:showCounty', function(year, month, county) {
+        console.log([year, month, county]);
     });
+    
     
 })(window.jQuery);
