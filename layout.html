@@ -125,7 +125,7 @@
            labels: {
               enabled: false,
            },
-           gridLineColor: '#dddddd',
+           gridLineColor: '#eeeeee',
            title: {
              text: null
            },
@@ -136,7 +136,17 @@
           shared: true,
           borderWidth: 0,
           borderRadius: 0,
-          shared: true
+          shared: true,
+          formatter: function() {
+            var s = '<b>'+ this.x +'</b>';
+            
+            $.each(this.points, function(i, point) {
+                s += '<br/><span style="font-weight: bold; color:' + point.series.color + ';">' + point.series.name +':</span> '+
+                    point.y +'%';
+            });
+            
+            return s;
+        }
         },
         plotOptions: {
            spline: {
@@ -147,6 +157,11 @@
                  lineWidth: 1
               },
               shadow: false,
+              states: {
+                hover: {
+                  lineWidth: 1.5
+                }
+              },
               events: {
                 click: null
               }
@@ -154,14 +169,14 @@
         },
         symbol: null,
         series: [{
-         name: 'Idaho',
+         name: 'US',
          marker:{
            radius: 0,
            symbol: null
          },
          data: [4.7, 4.8, 4.7, 4.7, 4.6, 4.6, 4.7, 4.7, 4.5, 4.4, 4.5, 4.4, 4.6, 4.5, 4.4, 4.5, 4.4, 4.6, 4.7, 4.6, 4.7, 4.7, 4.7, 5.0, 5.0, 4.9, 5.1, 5.0, 5.4, 5.6, 5.8, 6.1, 6.1, 6.5, 6.8, 7.3, 7.8, 8.3, 8.7, 8.9, 9.4, 9.5, 9.5, 9.6, 9.8, 10.0, 9.9, 9.9, 9.7, 9.8, 9.8, 9.9, 9.6, 9.4, 9.5, 9.6, 9.5, 9.5, 9.8, 9.4, 9.1, 9.0, 8.9, 9.0, 9.0, 9.1, 9.1, 9.1, 9.0, 8.9, 8.7]
       }, {
-         name: 'US',
+         name: 'Idaho',
          marker:{
            radius: 0,
            symbol: null

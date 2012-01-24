@@ -17,6 +17,9 @@
 /* #Site Styles
 ================================================== */
 
+.highcharts-tooltip text tspan { font-family: proxima-nova,sans-serif !important; font-size: 14px !important; }
+
+
 /* #Page Styles
 ================================================== */
 
