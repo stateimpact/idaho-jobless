@@ -381,6 +381,11 @@
                 type: 'spline',
                 data: _.map(national, function(rate) { return rate.get('unemploymentrate') }),
                 name: 'United States',
+                events: {
+                   legendItemClick: function(event){
+                     return false;
+                   }
+                },
                 marker:{
                   radius: 0,
                   symbol: null
@@ -393,6 +398,11 @@
                 type: 'spline',
                 data: _.map(idaho, function(rate) { return rate.get('unemploymentrate') }),
                 name: 'Idaho',
+                events: {
+                   legendItemClick: function(event){
+                     return false;
+                   }
+                },
                 marker:{
                   radius: 0,
                   symbol: null
@@ -412,7 +422,7 @@
                 chart: {
                     renderTo: this.id,
                     height: 100,
-                    width: 940,
+                    width: 620,
                     defaultSeriesType: 'spline',
                     marginLeft: 0,
                     marginRight: 0
@@ -425,7 +435,20 @@
                     text: null
                 },
                 legend: {
-                    enabled: false
+                    enabled: true,
+                    floating: true,
+                    align: 'left',
+                    verticalAlign: 'top',
+                    layout: 'vertical',
+                    borderWidth: 0,
+                    margin: 0,
+                    x: -15,
+                    itemStyle: {
+                      color: '#555'
+                    },
+                    itemHoverStyle: {
+                      color: '#555'
+                    }
                 },
                 xAxis: {
                     categories: this.getMonths(),

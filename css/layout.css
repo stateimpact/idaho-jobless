@@ -22,7 +22,11 @@ article header p { font-size: 18px; }
 article section { border-top: 1px solid #ccc; padding-top: 10px; }
 article .section-hed { font-size: 18px; line-height: 1.1; font-weight: normal; text-transform: uppercase; color: #000; }
 
+.graphic { position: relative; }
+#slider { position: absolute; z-index: 10; top: 138px; width: 611px; }
+#slider a { position: absolute; display: block; top: 0; height: 19px; width: 9px; background: url(../img/slider.png) no-repeat; }
 .graphic h3 { font-size: 14px; text-transform: uppercase; font-weight: normal; color: #999; line-height: 1; }
+#chart { height: 100px; margin-bottom: 10px; }
 .highcharts-tooltip text tspan,
 .highcharts-legend text { font-family: proxima-nova,sans-serif !important; font-size: 14px !important; }
 
@@ -62,22 +66,3 @@ article .section-hed { font-size: 18px; line-height: 1.1; font-weight: normal; t
 
 	/* Mobile Portrait Size to Mobile Landscape Size (devices and browsers) */
 	@media only screen and (max-width: 479px) {}
-
-
-/* #Font-Face
-================================================== */
-/* 	This is the proper syntax for an @font-face file
-		Just create a "fonts" folder at the root,
-		copy your FontName into code below and remove
-		comment brackets */
-
-/*	@font-face {
-	    font-family: 'FontName';
-	    src: url('../fonts/FontName.eot');
-	    src: url('../fonts/FontName.eot?iefix') format('eot'),
-	         url('../fonts/FontName.woff') format('woff'),
-	         url('../fonts/FontName.ttf') format('truetype'),
-	         url('../fonts/FontName.svg#webfontZam02nTh') format('svg');
-	    font-weight: normal;
-	    font-style: normal; }
-*/
