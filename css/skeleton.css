@@ -345,6 +345,8 @@
   background-color: #333;
   color: #ddd;
   padding: 14px;
+  font-size: 14px; 
+  line-height:1.2;
 }
 .popover .content p, .popover .content ul, .popover .content ol {
   margin-bottom: 0;

@@ -50,17 +50,75 @@
   </div>
 </header>
     <article id="container" class="container">
-      <header class="row">
-        <h1 class="four columns">Mapping Idaho's Unemployment</h1>
-        <p class="intro eight columns">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. </p>
+      <header class="intro row">
+        <div class="four columns">
+          <h1 class="headline">Work in Progress</h1>
+          <h2 class="subhead">Tracking Unemployment in Idaho</h2>
+          <h4 class="credit">By <a href="mailto:camico@npr.org">Chris Amico</a>, <a href="mailto:ddbelius@npr.org">Danny DeBelius</a>, <br />and <a href="mailto:mstiles@npr.org">Matt Stiles</a></h4>
+      <h4>A reporting project of local public media <br />and <a class="nprlogo" href="http://npr.org" title="Visit npr.org">NPR</a></h4> 
+        </div>
+        <p class="eight columns">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. </p>
         <ul class="sharing eight columns offset-by-four">
           <li><a href="https://twitter.com/share" class="twitter-share-button" data-count="none" data-via="NPRStateImpact">Tweet</a></li>
           <li><div class="fb-like" data-width="150" data-layout="button_count" data-show-faces="false"></div></li>
         </ul>
       </header>
-      
-      <div class="four columns">
-        <section class="profiles">
+      <section class="graphic 12 columns" style="margin-bottom: 20px;">
+        <div id="map" class="four columns alpha" style="height: 469px; background: #ddd;"></div>
+        <div class="eight columns omega">
+
+
+          <h2 class="section-hed">Unemployment Rate</h2>
+          <h3>January 2006 &#151; December 2011</h3>
+          <div id="slider"></div>
+          <div id="chart"></div>
+          <div class="data">
+            <table>
+              <thead>
+                <tr>
+                  <th colspan="4">August 2008</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="boundary">
+                  <th></th>
+                  <th>National</th>
+                  <th>Idaho</th>
+                  <th>Washington County</th>
+                </tr>
+                <tr class="rate">
+                  <th>Unemployment Rate</th>
+                  <td>11.4%</td>
+                  <td>10.5%</td>
+                  <td>6.1%</td>
+                </tr>
+                <tr>
+                  <th>Total Workforce <a data-placement="above" data-content='&ldquo;Workforce&rdquo; refers to the number of Idahoans who are actively seeking jobs. Some may be underemployed or have stopped looking.' href="#" class="btn danger" rel="popover">info</a></th>
+                  <td>70,123,000</td>
+                  <td>760,096</td>
+                  <td>7,353</td>
+                </tr>
+                <tr>
+                  <th>Unemployed <a data-placement="above" title="Unemployed" href="#" class="btn danger" rel="popover" data-content="Portion of civilian workforce that is not employed with paid, non-farm jobs.">info</a></th>
+                  <td>2,123,000</td>
+                  <td>38,927</td>
+                  <td>840</td>
+                </tr>
+              </tbody>
+            </table>
+
+          </div>
+        </div>
+      </section>
+      <div class="twelve columns">
+        <section class="four columns alpha coverage">
+           <h2 class="section-hed">More Jobless Coverage</h2>
+           <ul>
+            <li><a href="#">Headline goes here</a></li>
+            <li><a href="#">Headline goes here</a></li>
+           </ul>
+        </section>
+        <section class="profiles eight columns omega">
           <h2 class="section-hed">Stories of Idaho's Jobless</h2>
           <p>Read the stories of a few of the thousands left jobless in Idaho, or <a class="btn" data-controls-modal="share-modal" data-backdrop="true">share your story</a>.
 
@@ -71,68 +129,9 @@
           </div>
         </section>
         <div class="clearfix"></div>
-        <section class="coverage">
-           <h2 class="section-hed">More Jobless Coverage</h2>
-           <ul>
-            <li><a href="#">Headline goes here</a></li>
-            <li><a href="#">Headline goes here</a></li>
-           </ul>
-        </section>
+        
       </div>
-      <section class="graphic eight columns">
-        <h2 class="section-hed">Unemployment Rate</h2>
-        <h3>January 2006 &#151; December 2011</h3>
-        <div id="slider"></div>
-        <div id="chart"></div>
-
-        <div id="map" class="four columns alpha" style="height: 469px; background: #ddd;"></div>
-        <div class="data four columns omega">
-          <table>
-            <thead>
-              <tr>
-                <th colspan="2">August 2008</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr class="section rate">
-                <th colspan="2">Unemployment Rate</th>
-              </tr>
-              <tr>
-                <th>Idaho</th>
-                <th>Washington County</th>
-              </tr>
-              <tr class="rate">
-                <td>11.4%</td>
-                <td>10.5%</td>
-              </tr>
-              <tr class="section workforce">
-                <th colspan="2">Total Workforce <a data-placement="above" data-content='&ldquo;Workforce&rdquo; refers to the number of Idahoans who are actively seeking jobs. Some may be underemployed or have stopped looking.' href="#" class="btn danger" rel="popover">info</a></th>
-              </tr>
-              <tr>
-                <th>Idaho</th>
-                <th>Washington County</th>
-              </tr>
-              <tr>
-                <td>760,096</td>
-                <td>7,353</td>
-              </tr>
-              <tr class="section unemployed">
-                <th colspan="2">Unemployed <a data-placement="above" title="Unemployed" href="#" class="btn danger" rel="popover" data-content="Portion of civilian workforce that is not employed with paid, non-farm jobs.">info</a></th>
-              </tr>
-              <tr>
-                <th>Idaho</th>
-                <th>Washington County</th>
-              </tr>
-              <tr>
-                <td>38,927</td>
-                <td>840</td>
-              </tr>
-            </tbody>
-          </table>
-
-        </div>
-
-      </section>
+      
 
 
 
