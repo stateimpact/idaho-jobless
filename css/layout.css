@@ -39,6 +39,7 @@ article .section-hed { font-size: 18px; line-height: 1.1; font-weight: normal; t
 .data tbody th { font-size: 14px; color: #999; }
 .data .section th { padding: 20px 0 5px; border-bottom: 1px solid #ccc; font-size: 18px; text-transform: uppercase; color: #333; width: 100%; }
 .data tbody .rate td { font-size: 42px; line-height: 1; }
+.data a { width: 16px; height: 18px; display: inline-block; text-indent: -999em; background: url(../img/info-bug.png)no-repeat bottom; margin: 0; }
 
 .profiles p { font-size: 14px; }
 .profile img { float: left; margin: 0 10px 10px 0; }

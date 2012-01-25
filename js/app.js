@@ -4,7 +4,7 @@
 (function($) {
     // setting these up top so I don't have to dig through code later
     var TILE_URL = "http://a.tiles.mapbox.com/v3/mapbox.world-light.jsonp";
-    var CENTER = new L.LatLng(45.636, -114.598);
+    var CENTER = new L.LatLng(45.636, -114.098);
     var ZOOM = 6;
     
     var MONTHS = {
@@ -75,6 +75,9 @@
             if (!this._marker) {
                 this._marker = new L.CircleMarker(this.get('point'), {
                     weight: 1,
+                    color: '#d8472b',
+                    opacity: 0.8,
+                    fillOpacity: 0.7,
                     radius: this.get('unemploymentrate')
                 });
                 this._marker.on('click', function(e) {
@@ -148,7 +151,7 @@
         model: UnemploymentRate,
         
         comparator: function(rate) {
-            return -1 * (rate.get('date') || 0).valueOf();
+            return (rate.get('date') || 0).valueOf();
         },
         
         getArea: function(area) {
@@ -427,7 +430,7 @@
                     marginLeft: 0,
                     marginRight: 0
                 },
-                colors: ['#d8472b','#17807e'],
+                colors: ['#17807e','#d8472b'],
                 credits: {
                     text: null
                 },
@@ -582,7 +585,14 @@
     // global instances
     window.counties = new CountyCollection;
     window.unemploymentrates = new UnemploymentRateCollection;
-    window.umap = new UnemploymentMap({ el: '#map', collection: window.unemploymentrates, scrollWheelZoom: false });
+    window.umap = new UnemploymentMap({ 
+        el: '#map', 
+        collection: window.unemploymentrates, 
+        scrollWheelZoom: false, 
+        zoomControl: false, 
+        attributionControl: false,
+        doubleClickZoom: false 
+    });
     window.slider = new Slider({ el: '#slider', collection: window.unemploymentrates });
     window.hichart = new Chart({ id: 'chart', collection: window.unemploymentrates });
     window.app = new App({ collection: window.unemploymentrates });

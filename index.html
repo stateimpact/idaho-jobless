@@ -53,12 +53,16 @@
       <header class="row">
         <h1 class="four columns">Mapping Idaho's Unemployment</h1>
         <p class="intro eight columns">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. </p>
+        <ul class="sharing eight columns offset-by-four">
+          <li><a href="https://twitter.com/share" class="twitter-share-button" data-count="none" data-via="NPRStateImpact">Tweet</a></li>
+          <li><div class="fb-like" data-width="150" data-layout="button_count" data-show-faces="false"></div></li>
+        </ul>
       </header>
       
       <div class="four columns">
         <section class="profiles">
           <h2 class="section-hed">Stories of Idaho's Jobless</h2>
-          <p>Read the stories of a few of the thousands left jobless in Idaho, or <a href="#">share your story</a>.
+          <p>Read the stories of a few of the thousands left jobless in Idaho, or <a class="btn" data-controls-modal="share-modal" data-backdrop="true">share your story</a>.
 
           <div class="profile">
             <a href="#"><img src="http://stateimpact.npr.org/idaho/files/2011/11/JustyWEB1-150x150.jpg" width="100" height="100"></a>
@@ -102,7 +106,7 @@
                 <td>10.5%</td>
               </tr>
               <tr class="section workforce">
-                <th colspan="2">Total Workforce</th>
+                <th colspan="2">Total Workforce <a data-placement="above" data-content='&ldquo;Workforce&rdquo; refers to the number of Idahoans who are actively seeking jobs. Some may be underemployed or have stopped looking.' href="#" class="btn danger" rel="popover">info</a></th>
               </tr>
               <tr>
                 <th>Idaho</th>
@@ -113,7 +117,7 @@
                 <td>7,353</td>
               </tr>
               <tr class="section unemployed">
-                <th colspan="2">Unemployed</th>
+                <th colspan="2">Unemployed <a data-placement="above" title="Unemployed" href="#" class="btn danger" rel="popover" data-content="Definition of unemployed goes here.">info</a></th>
               </tr>
               <tr>
                 <th>Idaho</th>
@@ -134,12 +138,8 @@
 
     </article>
 
-<footer>
+<footer class="container">
 	<h3>A reporting project of local public media and <a class="nprlogo" href="http://npr.org" title="Visit npr.org">NPR</a></h3>
-	<ul class="sharing">
-	    <li><a href="https://twitter.com/share" class="twitter-share-button" data-count="none" data-via="NPRStateImpact">Tweet</a></li>
-	    <li><div class="fb-like" data-width="150" data-layout="button_count" data-show-faces="false"></div></li>
-	</ul>
 </footer>
 
 <!-- Modal Overlays -->
@@ -167,6 +167,20 @@
   </div>
 </div>
 
+<div id="share-modal" class="modal hide fade">
+  <div class="modal-header">
+    <a class="close">Close</a>
+    <h2>Share your story</h2>
+  </div>
+  <div class="modal-body">
+    <p>We want to know about your place in Idaho’s jobs landscape. Have you lost your job in recent years — or had success finding one? Some variation in between? Tell us how you feel about it. </p>
+    <p>Contact us via email (jobs@stateimpact.org) or voicemail (208-278-6154).</p>
+    <p>We hope to share your stories to inform and inspire our audience. We will not publish your name or voicemail without your consent. But we do need some basic information to contact you.</p> 
+    <p>Please leave your first and last name and an email address or phone number. Adding your county and career/industry is optional, but useful in helping us to pull together a range of stories from across the state.</p> 
+    <p>Interested in how your story might appear? These Idaho residents already shared their experiences in our our series, Jobless in Idaho.</p> 
+  </div>
+</div>
+
 	<!-- JS
 	================================================== -->
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
@@ -177,6 +191,9 @@
 	<script src="js/wax/dist/wax.leaf.min.js"></script>
 	<script src="js/date.js"></script>
 	<script src="js/highcharts.js"></script>
+  <script src="js/bootstrap-twipsy.js"></script>
+  <script src="js/bootstrap-modal.js"></script>
+  <script src="js/bootstrap-popover.js"></script>
     <script src="js/app.js"></script>
     <script>
     $.getJSON('data/counties.json', function(data) {
@@ -186,6 +203,7 @@
     $.getJSON('data/unemployment.json', function(data) {
         window.unemploymentrates.reset(data);
     });
+    $('.data a').popover();
     </script>
     <!-- sharing -->
     <script type="text/javascript" src="//platform.twitter.com/widgets.js"></script>
