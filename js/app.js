@@ -531,7 +531,15 @@
                 },
                 xAxis: {
                     categories: this.getMonths(),
-                    labels: false,
+                    labels: {
+                        enabled: true,
+                        step: 12,
+                        formatter: function() {
+                            return this.value.replace("Jan", "");
+                        },
+                        x: 10,
+                        y: 18
+                    },
                     tickInterval: 1,
                     tickmarkPlacement: 'on',
                     minPadding: 2,
