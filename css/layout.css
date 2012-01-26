@@ -21,10 +21,11 @@ article header .headline { font: 700 42px/1 proxima-nova-extra-condensed; color:
 article header .subhead { font-size: 18px; line-height: 1.2; font-weight: 400; color: #666; }
 .intro h4 { color: #999; font-weight: 400; font-size: 14px;  line-height: 17px; }
 		.intro .credit { margin-bottom: 10px; }
-		.intro .credit a { color: #999; }
+		.intro .credit a { color: #999; text-decoration: none; }
 		.intro .credit a:hover { color: #BF3119; }
 		.nprlogo { display: inline-block; text-indent: -999em; width: 51px; height: 17px; background: url(../img/npr-transparent.png) no-repeat; margin: 0 0 0 3px; }
 article header p { font-size: 18px; }
+article .intro ul li { float: left; margin-right: 10px; }
 article section { border-top: 1px solid #ccc; padding-top: 10px; }
 article .section-hed { font-size: 18px; line-height: 1.1; font-weight: normal; text-transform: uppercase; color: #000; }
 
