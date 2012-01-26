@@ -300,11 +300,13 @@
         },
         
         slideOpts: function() {
-            var values = this.getValues();
+            var values = this.getValues(),
+                min = _.min(values),
+                max = _.max(values);
             return {
-                min: _.min(values),
-                max: _.max(values),
-                step: 2597161445.7831326,
+                min: min,
+                max: max,
+                step: (max - min) / values.length,
                 animate: true
             };
         },
@@ -340,7 +342,7 @@
         },
         
         getValues: function() {
-            var dates = this.collection.getMonths();
+            var dates = this.collection.getCountyMonths();
             return _.map(dates, function(d) { return d.valueOf() });
         },
         
@@ -385,25 +387,31 @@
         },
         
         clear: function(chart) {
-            if (chart || (chart = this.chart)) {
-                _.each(chart.series, function(s) { s.remove(false); });
-                chart.redraw();
+            chart || (chart = this.chart);
+            for (var line in this.series) {
+                this.series[line].remove(false);
             }
+            chart.redraw();
             return this;
         },
         
         plot: function(chart) {
-            this.clear(chart);
+            // this.clear(chart);
             this.plotNational(chart);
             this.plotIdaho(chart);
             this.plotCounty(null, chart);
             return this;
         },
         
-        plotNational: function(chart) {
+        plotNational: function(chart, redraw) {
             // national
+            redraw = redraw || true;
             var national = this.collection.getNational(),
                 chart = chart || this.chart;
+            
+            if (this.series.national) {
+                this.series.national.remove(redraw)
+            }
             this.series.national = chart.addSeries({
                 type: 'spline',
                 data: _.map(national, function(rate) { return rate.get('unemploymentrate') }),
@@ -421,10 +429,14 @@
             return this;
         },
         
-        plotIdaho: function(chart) {
+        plotIdaho: function(chart, redraw) {
+            redraw = redraw || true;
             var idaho = this.collection.getIdaho(),
                 chart = chart || this.chart;
-            // idaho
+            
+            if (this.series.idaho) {
+                this.series.idaho.remove(redraw)
+            }
             this.series.idaho = chart.addSeries({
                 type: 'spline',
                 data: _.map(idaho, function(rate) { return rate.get('unemploymentrate') }),
@@ -442,10 +454,16 @@
             return this;
         },
         
-        plotCounty: function(county, chart) {
+        plotCounty: function(county, chart, redraw) {
             // county
+            redraw = redraw || true;
             county = county || app.getCounty(),
                 chart = chart || this.chart;
+            
+            if (this.series.county) {
+                this.series.county.remove(redraw);
+            }
+            
             if (county) {
                 var countyrates = this.collection.getCounty(county);
                 this.series.county = chart.addSeries({
@@ -477,6 +495,12 @@
                     defaultSeriesType: 'spline',
                     marginLeft: 0,
                     marginRight: 0
+                },
+                events: {
+                    addSeries: function(e) {
+                        console.log(e.options.name);
+                        console.log(this);
+                    }
                 },
                 colors: ['#17807e','#d8472b', '#e38d2c'],
                 credits: {
@@ -645,10 +669,6 @@
     window.hichart = new Chart({ id: 'chart', collection: window.unemploymentrates });
     window.app = new App({ collection: window.unemploymentrates });
     
-    Backbone.history.start({ root: '/' });
-    window.app.bind('route:showCounty', function(year, month, county) {
-        console.log([year, month, county]);
-    });
-    
+    Backbone.history.start({ root: '/' });    
     
 })(window.jQuery);
