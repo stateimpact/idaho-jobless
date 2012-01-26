@@ -517,7 +517,9 @@
                     title: {
                         text: null
                     },
-                    tickInterval: 1
+                    tickInterval: 1,
+                    tickmarkPlacement: "on",
+                    min: 0
                 },
                 tooltip: {
                     crosshairs: true,
