@@ -18,7 +18,7 @@
 ================================================== */
 
 article header .headline { font: 700 42px/1 proxima-nova-extra-condensed; color: #000; text-transform: uppercase; margin: 0; }
-article header .subhead { font-size: 18px; line-height: 1.2; font-weight: 400; color: #666; }
+article header .subhead { font-size: 18px; line-height: 1.2; font-weight: 600; color: #666; }
 .intro h4 { color: #999; font-weight: 400; font-size: 14px;  line-height: 17px; }
 		.intro .credit { margin-bottom: 10px; }
 		.intro .credit a { color: #999; text-decoration: none; }
@@ -47,7 +47,7 @@ article .section-hed { font-size: 18px; line-height: 1.1; font-weight: normal; t
 .data tbody th { width: 50%; }
 .data tbody td { font-size: 24px; padding: 5px 0; }
 .data tbody th { font-size: 14px; color: #999; }
-.data .section th { padding: 20px 0 5px; border-bottom: 1px solid #ccc; font-size: 18px; font-weight: 600; text-transform: uppercase; color: #333; width: 100%; }
+.data .section th { padding: 20px 0 5px; border-bottom: 1px solid #ccc; font-size: 16px; font-weight: 700; color: #333; width: 100%; }
 .data tbody .rate td { font-size: 42px; line-height: 1; }
 .data a { width: 16px; height: 18px; display: inline-block; text-indent: -999em; background: url(../img/info-bug.png)no-repeat bottom; margin: 0; }
 
