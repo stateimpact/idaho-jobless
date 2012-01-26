@@ -62,13 +62,8 @@
       <div class="four columns">
         <section class="profiles">
           <h2 class="section-hed">Stories of Idaho's Jobless</h2>
-          <p>Read the stories of a few of the thousands left jobless in Idaho, or <a class="btn" data-controls-modal="share-modal" data-backdrop="true">share your story</a>.
-
-          <div class="profile">
-            <a href="#"><img src="http://stateimpact.npr.org/idaho/files/2011/11/JustyWEB1-150x150.jpg" width="100" height="100"></a>
-            <h3><a href="#">Justy Thomas</a></h3>
-            <p>“They wouldn’t even look at or consider me unless I had a four-year degree.”</p>
-          </div>
+          <p>Read the stories of a few of the thousands left jobless in Idaho, or <a class="btn" data-controls-modal="share-modal" data-backdrop="true">share your story</a>.</p>
+          <div id="stories"></div>
         </section>
         <div class="clearfix"></div>
         <section class="coverage">
@@ -183,6 +178,15 @@
 
 	<!-- JS
 	================================================== -->
+	<script id="story-template" type="text/x-jst">
+	<div class="profile">
+      <% if (thumbnail) { %>
+      <a href="<%= url %>"><img src="<%= thumbnail %>" width="100" height="100"></a>
+      <% } %>
+      <h3><a href="<%= url %>"><%= title.replace(/Jobless in Idaho: /i, '') %></a></h3>
+      <p><%= excerpt %></p>
+    </div>
+	</script>
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 	<script src="js/jquery-ui-1.8.17.custom.js"></script>
 	<script src="js/underscore-min.js"></script>
@@ -191,9 +195,9 @@
 	<script src="js/wax/dist/wax.leaf.min.js"></script>
 	<script src="js/date.js"></script>
 	<script src="js/highcharts.js"></script>
-  <script src="js/bootstrap-twipsy.js"></script>
-  <script src="js/bootstrap-modal.js"></script>
-  <script src="js/bootstrap-popover.js"></script>
+    <script src="js/bootstrap-twipsy.js"></script>
+    <script src="js/bootstrap-modal.js"></script>
+    <script src="js/bootstrap-popover.js"></script>
     <script src="js/app.js"></script>
     <script>
     $.getJSON('data/counties.json', function(data) {
@@ -203,6 +207,20 @@
     $.getJSON('data/unemployment.json', function(data) {
         window.unemploymentrates.reset(data);
     });
+    
+    $.ajax({
+        url: 'http://stateimpact.npr.org/idaho/api/get_tag_posts/?slug=jobless-profile&count=5',
+        dataType: 'jsonp',
+        success: function(resp) {
+            var template = _.template($('#story-template').html()),
+                root = $('#stories');
+            
+            _.each(resp.posts, function(post, i) {
+                root.append(template(post));
+            });
+        }
+    });
+    
     $('.data a').popover();
     </script>
     <!-- sharing -->
