@@ -211,7 +211,8 @@
         
         initialize: function(options) {
             _.bindAll(this);
-            this.map = map = new L.Map(this.el, options);
+            this.map = new L.Map(this.el, options);
+            var map = this.map;
             wax.tilejson(TILE_URL, function(tilejson) {
                 map.addLayer(new wax.leaf.connector(tilejson))
                 .setView(CENTER, ZOOM);
@@ -293,7 +294,7 @@
             return {
                 min: _.min(values),
                 max: _.max(values),
-                step: values.length,
+                step: 2597161445.7831326,
                 animate: true
             };
         },
@@ -458,12 +459,12 @@
                     labels: false,
                     tickInterval: 1,
                     tickmarkPlacement: 'on',
-                    minPadding: 0.001,
-                    maxPadding: 0.001
+                    minPadding: 2,
+                    maxPadding: 10
                 },
                 yAxis: {
                     labels: {
-                        enabled: false,
+                        enabled: false
                     },
                     gridLineColor: '#eeeeee',
                     title: {
