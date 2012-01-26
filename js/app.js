@@ -81,6 +81,10 @@
                     radius: this.get('unemploymentrate')
                 });
                 this._marker.on('click', function(e) {
+                    if (window.datatable) {
+                        window.datatable.model = rate;
+                        window.datatable.render();
+                    }
                     var route = [rate.get('year'), rate.get('month'), rate.getCounty().get('name')];
                     window.app.navigate(route.join('/'));
                 });
@@ -586,6 +590,26 @@
         }
     });
     
+    var TableView = Backbone.View.extend({
+        
+        initialize: function(options) {
+            this.template = _.template($('#table-template').html());
+            return this;
+        },
+        
+        render: function(rate) {
+            rate = rate || this.model;
+            var date = window.app.getDate();
+            var idaho = this.collection.find(function(r) {
+                return (r.get('area') === 'Idaho'
+                        && _.isEqual(r.get('date'), rate.get('date')));
+            });
+            var context = rate.toJSON();
+            context.idaho = idaho.toJSON();
+            $(this.el).html(this.template(context));
+        }
+    });
+    
     // router
     var App = Backbone.Router.extend({
         
@@ -669,6 +693,7 @@
     });
     window.slider = new Slider({ el: '#slider', collection: window.unemploymentrates });
     window.hichart = new Chart({ id: 'chart', collection: window.unemploymentrates });
+    window.datatable = new TableView({ el: '#comparison', collection: window.unemploymentrates });
     window.app = new App({ collection: window.unemploymentrates });
     
     Backbone.history.start({ root: '/' });    

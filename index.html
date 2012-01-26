@@ -92,49 +92,7 @@
           <div class="legend"><span class="key"></span> Unemployment Rate</div>  
         </div>
         <div class="data four columns omega">
-          <table>
-            <thead>
-              <tr>
-                <th colspan="2">August 2008</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr class="section rate">
-                <th colspan="2">Unemployment Rate</th>
-              </tr>
-              <tr>
-                <th>Idaho</th>
-                <th>Washington County</th>
-              </tr>
-              <tr class="rate">
-                <td>11.4%</td>
-                <td>10.5%</td>
-              </tr>
-              <tr class="section workforce">
-                <th colspan="2">Total Workforce <a data-placement="above" data-content='&ldquo;Workforce&rdquo; refers to the number of Idahoans who are actively seeking jobs. Some may be underemployed or have stopped looking.' href="#" class="btn danger" rel="popover">info</a></th>
-              </tr>
-              <tr>
-                <th>Idaho</th>
-                <th>Washington County</th>
-              </tr>
-              <tr>
-                <td>760,096</td>
-                <td>7,353</td>
-              </tr>
-              <tr class="section unemployed">
-                <th colspan="2">Unemployed <a data-placement="above" title="Unemployed" href="#" class="btn danger" rel="popover" data-content="Portion of civilian workforce that is not employed with paid, non-farm jobs.">info</a></th>
-              </tr>
-              <tr>
-                <th>Idaho</th>
-                <th>Washington County</th>
-              </tr>
-              <tr>
-                <td>38,927</td>
-                <td>840</td>
-              </tr>
-            </tbody>
-          </table>
-
+          <table id="comparison"></table>
         </div>
 
       </section>
@@ -196,6 +154,49 @@
       <h3><a href="<%= url %>"><%= title.replace(/Jobless in Idaho: /i, '') %></a></h3>
       <p><%= excerpt %></p>
     </div>
+	</script>
+	
+	<script id="table-template" type="text/x-jst">
+	<thead>
+      <tr>
+        <th colspan="2"><%= date.toString('MMMM yyyy') %></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="section rate">
+        <th colspan="2">Unemployment Rate</th>
+      </tr>
+      <tr>
+        <th>Idaho</th>
+        <th><%= area %></th>
+      </tr>
+      <tr class="rate">
+        <td><%= idaho.unemploymentrate %>%</td>
+        <td><%= unemploymentrate %>%</td>
+      </tr>
+      <tr class="section workforce">
+        <th colspan="2">Total Workforce <a data-placement="above" data-content='&ldquo;Workforce&rdquo; refers to the number of Idahoans who are actively seeking jobs. Some may be underemployed or have stopped looking.' href="#" class="btn danger" rel="popover">info</a></th>
+      </tr>
+      <tr>
+        <th>Idaho</th>
+        <th><%= area %></th>
+      </tr>
+      <tr>
+        <td><%= idaho.laborforce %></td>
+        <td><%= laborforce %></td>
+      </tr>
+      <tr class="section unemployed">
+        <th colspan="2">Unemployed <a data-placement="above" title="Unemployed" href="#" class="btn danger" rel="popover" data-content="Portion of civilian workforce that is not employed with paid, non-farm jobs.">info</a></th>
+      </tr>
+      <tr>
+        <th>Idaho</th>
+        <th><%= area %></th>
+      </tr>
+      <tr>
+        <td><%= idaho.unemployment %></td>
+        <td><%= unemployment %></td>
+      </tr>
+    </tbody>
 	</script>
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 	<script src="js/jquery-ui-1.8.17.custom.js"></script>
