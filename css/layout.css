@@ -26,7 +26,8 @@ article header .subhead { font-size: 18px; line-height: 1.2; font-weight: 600; c
 		.nprlogo { display: inline-block; text-indent: -999em; width: 51px; height: 17px; background: url(../img/npr-transparent.png) no-repeat; margin: 0 0 0 3px; }
 article header p { font-size: 18px; }
 article .intro ul li { float: left; margin-right: 10px; }
-article section { border-top: 1px solid #ccc; padding-top: 10px; }
+article section,
+.discussion .section-hed { border-top: 1px solid #ccc; padding-top: 10px; }
 article .section-hed { font-size: 18px; line-height: 1.1; font-weight: normal; text-transform: uppercase; color: #000; }
 
 #map {background: #fff !important; position: relative; }
@@ -51,12 +52,28 @@ article .section-hed { font-size: 18px; line-height: 1.1; font-weight: normal; t
 .data tbody .rate td { font-size: 42px; line-height: 1; }
 .data a { width: 16px; height: 18px; display: inline-block; text-indent: -999em; background: url(../img/info-bug.png)no-repeat bottom; margin: 0; }
 
+.discussion { margin-top: 20px; }
+
 .profiles p { font-size: 14px; }
-.profiles p a { display: none; }
+.profiles #stories p a { display: none; }
 .profile img { float: left; margin: 0 10px 10px 0; }
 .profile h3 { font-size: 18px; line-height: 1.1; text-decoration: none; margin: 0 0 5px 0; }
 .profile h3 a { text-decoration: none; }
 .profile p { font-size: 14px; line-height: 1.2; }
+
+
+.project-info { }
+
+footer.container { color: #333; margin-top: 20px; border-top: 1px solid #ccc; padding-top: 10px; }
+footer h2 { font-size: 16px; font-weight: 300; color: #fff; border-bottom: 4px solid #ccc; text-transform: uppercase; margin-bottom: 9px;  }
+footer p, 
+footer li, 
+footer dl { font-size: 14px !important; margin: 0; !important; }
+footer a, footer a:hover { font-weight: bold; color: #999; }
+footer .boilerplate, footer .partnership { text-align: right; }
+footer .boilerplate { font-size: 12px; color: #666; }
+footer .boilerplate a, footer .boilerplate a:visited { color: #999; }
+footer a.nprlogo { text-indent: -999em; text-align: left; }
 
 /* #Page Styles
 ================================================== */

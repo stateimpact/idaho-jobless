@@ -4,7 +4,7 @@
 (function($) {
     // setting these up top so I don't have to dig through code later
     var TILE_URL = "http://a.tiles.mapbox.com/v3/npr.idaho-jobless.jsonp";
-    var CENTER = new L.LatLng(45.636, -114.298);
+    var CENTER = new L.LatLng(45.636, -114.299);
     var ZOOM = 6;
     
     var MONTHS = {
