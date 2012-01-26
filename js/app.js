@@ -170,6 +170,16 @@
             return this.getArea('Idaho');
         },
         
+        getCounty: function(county) {
+            county = county || app.getCounty();
+            if (!county) return;
+            return this.filter(function(rate) {
+                return (rate.get('area') === county.get('formalname')
+                        && rate.get('adjusted')
+                        && !rate.get('preliminary'));
+            });
+        },
+        
         getMonths: function() {
             // return all unique months in this collection
             var dates = this.pluck('date');
@@ -348,6 +358,7 @@
         
         initialize: function(options) {
             _.bindAll(this);
+            this.series = {}
             this.el = $(this.id)[0];
             if (this.collection.length) {
                 this.makeChart();
@@ -361,8 +372,10 @@
         },
         
         makeChart: function() {
-            this.chart = new Highcharts.Chart(this.chartOptions());
-            this.plot();
+            var that = this;
+            this.chart = new Highcharts.Chart(this.chartOptions(), function(chart) {
+                that.plot(chart);
+            });
             return this;
         },
         
@@ -371,17 +384,27 @@
             return _.map(dates, function(d) { return d.toString('MMM yyyy'); });
         },
         
-        clear: function() {
-            if (this.chart) {
-                _.each(this.chart.series, function(s) { s.remove(false); });                
+        clear: function(chart) {
+            if (chart || (chart = this.chart)) {
+                _.each(chart.series, function(s) { s.remove(false); });
+                chart.redraw();
             }
+            return this;
         },
         
-        plot: function() {
-            this.clear();
+        plot: function(chart) {
+            this.clear(chart);
+            this.plotNational(chart);
+            this.plotIdaho(chart);
+            this.plotCounty(null, chart);
+            return this;
+        },
+        
+        plotNational: function(chart) {
             // national
-            var national = this.collection.getNational();
-            this.chart.addSeries({
+            var national = this.collection.getNational(),
+                chart = chart || this.chart;
+            this.series.national = chart.addSeries({
                 type: 'spline',
                 data: _.map(national, function(rate) { return rate.get('unemploymentrate') }),
                 name: 'United States',
@@ -395,10 +418,14 @@
                   symbol: null
                 }
             });
-            
-            var idaho = this.collection.getIdaho();
+            return this;
+        },
+        
+        plotIdaho: function(chart) {
+            var idaho = this.collection.getIdaho(),
+                chart = chart || this.chart;
             // idaho
-            this.chart.addSeries({
+            this.series.idaho = chart.addSeries({
                 type: 'spline',
                 data: _.map(idaho, function(rate) { return rate.get('unemploymentrate') }),
                 name: 'Idaho',
@@ -412,10 +439,30 @@
                   symbol: null
                 }
             });
-            
+            return this;
+        },
+        
+        plotCounty: function(county, chart) {
             // county
-            var county = app.getCounty();
-            
+            county = county || app.getCounty(),
+                chart = chart || this.chart;
+            if (county) {
+                var countyrates = this.collection.getCounty(county);
+                this.series.county = chart.addSeries({
+                    type: 'spline',
+                    data: _.map(function(rate) { return rate.get('unemploymentrate') }),
+                    name: county.toString(),
+                    events: {
+                       legendItemClick: function(event){
+                         return false;
+                       }
+                    },
+                    marker:{
+                      radius: 0,
+                      symbol: null
+                    }
+                });
+            }
             return this;
         },
         
@@ -431,7 +478,7 @@
                     marginLeft: 0,
                     marginRight: 0
                 },
-                colors: ['#17807e','#d8472b'],
+                colors: ['#17807e','#d8472b', '#e38d2c'],
                 credits: {
                     text: null
                 },
