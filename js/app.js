@@ -3,7 +3,7 @@
 
 (function($) {
     // setting these up top so I don't have to dig through code later
-    var TILE_URL = "http://a.tiles.mapbox.com/v3/mapbox.world-light.jsonp";
+    var TILE_URL = "http://a.tiles.mapbox.com/v3/npr.idaho-jobless.jsonp";
     var CENTER = new L.LatLng(45.636, -114.098);
     var ZOOM = 6;
     
