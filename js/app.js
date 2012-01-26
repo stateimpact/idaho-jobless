@@ -490,7 +490,7 @@
                     floating: true,
                     align: 'left',
                     verticalAlign: 'top',
-                    layout: 'vertical',
+                    layout: 'horizontal',
                     borderWidth: 0,
                     margin: 0,
                     x: -15,
