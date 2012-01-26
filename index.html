@@ -55,13 +55,15 @@
           <h1 class="headline">Work in Progress</h1>
           <h2 class="subhead">Tracking Unemployment in Idaho</h2>
           <h4 class="credit">By <a href="mailto:camico@npr.org">Chris Amico</a>, <a href="mailto:ddbelius@npr.org">Danny DeBelius</a>, <br />and <a href="mailto:mstiles@npr.org">Matt Stiles</a></h4>
-      <h4>A reporting project of local public media <br />and <a class="nprlogo" href="http://npr.org" title="Visit npr.org">NPR</a></h4> 
+      <!-- <h4>A reporting project of local public media <br />and <a class="nprlogo" href="http://npr.org" title="Visit npr.org">NPR</a></h4> -->
         </div>
-        <p class="eight columns">Thousands remain jobless after the 2008 financial crisis, which caused unemployment to spike across the country. The Gem State’s jobless rate is declining, however, and is now lower than the nation as a whole. Use this tool to track unemployment by county over time, read personal accounts of Idahoans still seeking work — and tell us your story. <a href="http://stateimpact.npr.org/idaho/work-in-progress-about-the-data/">More about this data.</a></p>
-        <ul class="sharing eight columns offset-by-four">
-          <li><a href="https://twitter.com/share" class="twitter-share-button" data-count="none" data-via="NPRStateImpact">Tweet</a></li>
-          <li><div class="fb-like" data-width="150" data-layout="button_count" data-show-faces="false"></div></li>
-        </ul>
+        <div class="eight columns">
+          <p>Thousands remain jobless after the 2008 financial crisis, which caused unemployment to spike across the country. The Gem State’s jobless rate is declining, however, and is now lower than the nation as a whole. Use this tool to track unemployment by county over time, read personal accounts of Idahoans still seeking work — and tell us your story. <a href="http://stateimpact.npr.org/idaho/work-in-progress-about-the-data/">More about this data.</a></p>
+          <ul class="sharing">
+            <li><a href="https://twitter.com/share" class="twitter-share-button" data-count="none" data-via="NPRStateImpact">Tweet</a></li>
+            <li><div class="fb-like" data-width="150" data-layout="button_count" data-show-faces="false"></div></li>
+          </ul>
+        </div>
       </header>
       
       <div class="four columns">
@@ -85,7 +87,10 @@
         <div id="slider"></div>
         <div id="chart"></div>
 
-        <div id="map" class="four columns alpha" style="height: 469px; background: #ddd;"></div>
+        <div id="map" class="four columns alpha" style="height: 469px; background: #ddd;">
+          
+          <div class="legend"><span class="key"></span> Unemployment Rate</div>  
+        </div>
         <div class="data four columns omega">
           <table>
             <thead>

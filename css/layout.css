@@ -29,26 +29,30 @@ article .intro ul li { float: left; margin-right: 10px; }
 article section { border-top: 1px solid #ccc; padding-top: 10px; }
 article .section-hed { font-size: 18px; line-height: 1.1; font-weight: normal; text-transform: uppercase; color: #000; }
 
+#map {background: #fff !important; position: relative; }
+#map .legend { position: absolute; top: 15px; right:50px; font-size: 14px; color: #999; line-height: 15px; }
+#map .legend .key { display: inline-block; border-radius: 30px; height: 10px; width: 10px; background: #d8472b; background: rgba(216, 71, 43, .7) }
 .graphic { position: relative; }
 #slider { position: absolute; z-index: 10; top: 138px; width: 611px; }
 #slider a { position: absolute; display: block; top: 0; height: 19px; width: 9px; background: url(../img/slider.png) no-repeat; }
 .graphic h3 { font-size: 14px; text-transform: uppercase; font-weight: normal; color: #999; line-height: 1; }
 #chart { height: 100px; margin-bottom: 10px; }
 .highcharts-tooltip text tspan,
-.highcharts-legend text { font-family: proxima-nova,sans-serif !important; font-size: 14px !important; }
+.highcharts-legend text { font-family: proxima-nova,sans-serif !important; font-size: 14px !important; line-height: 1.1; }
 
 .data table { width: 100%; }
-.data thead th { font-size: 36px; line-height: 1.1; }
+.data thead th { font-size: 36px; line-height: 1.1; font-weight: 600; }
 .data th { text-align: left; }
 .data tbody td,
 .data tbody th { width: 50%; }
 .data tbody td { font-size: 24px; padding: 5px 0; }
 .data tbody th { font-size: 14px; color: #999; }
-.data .section th { padding: 20px 0 5px; border-bottom: 1px solid #ccc; font-size: 18px; text-transform: uppercase; color: #333; width: 100%; }
+.data .section th { padding: 20px 0 5px; border-bottom: 1px solid #ccc; font-size: 18px; font-weight: 600; text-transform: uppercase; color: #333; width: 100%; }
 .data tbody .rate td { font-size: 42px; line-height: 1; }
 .data a { width: 16px; height: 18px; display: inline-block; text-indent: -999em; background: url(../img/info-bug.png)no-repeat bottom; margin: 0; }
 
 .profiles p { font-size: 14px; }
+.profiles p a { display: none; }
 .profile img { float: left; margin: 0 10px 10px 0; }
 .profile h3 { font-size: 18px; line-height: 1.1; text-decoration: none; margin: 0 0 5px 0; }
 .profile h3 a { text-decoration: none; }
