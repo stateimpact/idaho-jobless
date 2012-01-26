@@ -4,7 +4,7 @@
 (function($) {
     // setting these up top so I don't have to dig through code later
     var TILE_URL = "http://a.tiles.mapbox.com/v3/npr.idaho-jobless.jsonp";
-    var CENTER = new L.LatLng(45.636, -114.098);
+    var CENTER = new L.LatLng(45.636, -114.298);
     var ZOOM = 6;
     
     var MONTHS = {
@@ -514,7 +514,7 @@
                     floating: true,
                     align: 'left',
                     verticalAlign: 'top',
-                    layout: 'vertical',
+                    layout: 'horizontal',
                     borderWidth: 0,
                     margin: 0,
                     x: -15,
@@ -541,7 +541,9 @@
                     title: {
                         text: null
                     },
-                    tickInterval: 1
+                    tickInterval: 1,
+                    tickmarkPlacement: "on",
+                    min: 0
                 },
                 tooltip: {
                     crosshairs: true,
