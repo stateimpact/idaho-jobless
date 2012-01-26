@@ -158,6 +158,10 @@
             return (rate.get('date') || 0).valueOf();
         },
         
+        latest: function() {
+            
+        },
+        
         getArea: function(area) {
             return this.filter(function(rate) {
                 return (rate.get('area') === area
@@ -192,7 +196,7 @@
         
         getCountyMonths: function() {
             // return unemployment rates for months with county rates
-            var rates = this.filter(function(rate) { return !!rate.get('fips') && !rate.get('prelimintary') }),
+            var rates = this.filter(function(rate) { return (rate.has('fips') && rate.get('adjusted') && !rate.get('prelimintary')) }),
                 dates = _.map(rates, function(rate) {return rate.get('date')});
             return _.unique(dates, true, function(d) { return d.valueOf() });
         },
@@ -633,7 +637,7 @@
         },
         
         initial: function() {
-            console.log('initial route');
+            
         },
         
         showMonth: function(year, month) {
