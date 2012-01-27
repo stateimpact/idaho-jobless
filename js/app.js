@@ -156,7 +156,11 @@
         },
         
         latest: function() {
-            
+            return this.find(function(rate) {
+                return (rate.has('fips')
+                        && rate.get('adjusted')
+                        && !rate.get('preliminary'));
+            });
         },
         
         getArea: function(area) {
@@ -675,7 +679,18 @@
         },
         
         initial: function() {
-            
+            var url, rate;
+            if (this.collection.length) {
+                rate = this.getDefaultRate();
+                url = this.getUrl(rate.get('year'), rate.get('month'), rate.get('area').replace(' County', ''));
+                this.navigate(url, true);
+            } else {
+                this.collection.bind('reset', function(models) {
+                    rate = this.getDefaultRate();
+                    url = this.getUrl(rate.get('year'), rate.get('month'), rate.get('area').replace(' County', ''));
+                    this.navigate(url, true);
+                }, this);
+            }
         },
         
         showMonth: function(year, month) {
@@ -683,10 +698,12 @@
             if (this.collection.length) {
                 window.umap.plot(year, month);
                 window.slider.value(date.valueOf());
+                window.datatable.render();
             } else {
                 this.collection.bind('reset', function(rates) {
                     window.umap.plot(year, month);
                     window.slider.value(date.valueOf());
+                    window.datatable.render();
                 });
             }
         },
@@ -710,6 +727,15 @@
         getUrl: function(year, month, county) {
             // utility method for getting a paty from args
             return _.compact([year, month, county]).join('/');
+        },
+        
+        getDefaultRate: function() {
+            // return the most recent rate for DEFAULT_AREA
+            return this.collection.chain().filter(function(rate) {
+                return (rate.get('area') == DEFAULT_AREA
+                        && rate.get('adjusted')
+                        && !rate.get('preliminary'));
+            }).last().value();
         },
         
         getDate: function() {
