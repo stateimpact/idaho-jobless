@@ -412,7 +412,7 @@
         
         getMonths: function() {
             var dates = this.collection.getMonths();
-            return _.map(dates, function(d) { return d.toString('MMM yyyy'); });
+            return _.map(dates, function(d) { return d.toString('MMMM yyyy'); });
         },
         
         clear: function(chart) {
@@ -442,7 +442,7 @@
                 this.series.national.remove(redraw)
             }
             this.series.national = chart.addSeries({
-                type: 'spline',
+                type: 'line',
                 data: _.map(national, function(rate) { return rate.get('unemploymentrate') }),
                 name: 'United States',
                 events: {
@@ -467,7 +467,7 @@
                 this.series.idaho.remove(redraw)
             }
             this.series.idaho = chart.addSeries({
-                type: 'spline',
+                type: 'line',
                 data: _.map(idaho, function(rate) { return rate.get('unemploymentrate') }),
                 name: 'Idaho',
                 events: {
@@ -496,7 +496,7 @@
             if (county) {
                 var countyrates = this.collection.getCounty(county);
                 this.series.county = chart.addSeries({
-                    type: 'spline',
+                    type: 'line',
                     data: _.map(countyrates, function(rate) { return rate.get('unemploymentrate') }),
                     name: county.toString(),
                     events: {
@@ -546,6 +546,8 @@
                     layout: 'horizontal',
                     borderWidth: 0,
                     margin: 0,
+                    symbolPadding: 3,
+                    symbolWidth: 10,
                     x: -15,
                     itemStyle: {
                       color: '#555'
@@ -560,22 +562,20 @@
                         enabled: true,
                         step: 12,
                         formatter: function() {
-                            return this.value.replace("Jan", "");
+                            return this.value.replace("January", "");
                         },
                         x: 10,
                         y: 18
                     },
                     tickInterval: 1,
                     tickmarkPlacement: 'on',
-                    minPadding: 2,
-                    maxPadding: 10,
                     lineColor: '#ccc'
                 },
                 yAxis: {
                     labels: {
                         enabled: false
                     },
-                    gridLineColor: '#eeeeee',
+                    gridLineColor: '#fff',
                     title: {
                         text: null
                     },
@@ -584,7 +584,7 @@
                     min: 0
                 },
                 tooltip: {
-                    crosshairs: true,
+                    crosshairs: false,
                     shared: true,
                     borderWidth: 0,
                     borderRadius: 0,
@@ -601,7 +601,7 @@
                     }
                 },
                 plotOptions: {
-                    spline: {
+                    line: {
                         lineWidth: 1.5,
                         marker: {
                             radius: 4,
