@@ -252,6 +252,9 @@
             window.umap.plot();
         });
     });
+    window.unemploymentrates.bind('reset', function() {
+        window.hichart.plot();
+    });
     
     $.ajax({
         url: 'http://stateimpact.npr.org/idaho/api/get_tag_posts/?slug=jobless-profile&count=5',
