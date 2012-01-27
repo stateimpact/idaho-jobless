@@ -620,6 +620,7 @@
             var context = rate.toJSON();
             context.idaho = idaho.toJSON();
             $(this.el).html(this.template(context));
+            $('.data a').popover();
         }
     });
     

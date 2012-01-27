@@ -73,15 +73,11 @@
         <div class="clearfix"></div>
         <section class="coverage">
            <h2 class="section-hed">More Jobless Coverage</h2>
-           <ul>
-            <li><a href="#">Headline goes here</a></li>
-            <li><a href="#">Headline goes here</a></li>
-           </ul>
+           <ul id="headlines"></ul>
         </section>
       </div>
       <section class="graphic eight columns">
         <h2 class="section-hed">Unemployment Rate</h2>
-        <h3>January 2006 &#151; December 2011</h3>
         <div id="slider"></div>
         <div id="chart"></div>
 
@@ -179,6 +175,10 @@
       <p><%= excerpt %></p>
     </div>
 	</script>
+
+  <script id="headline-template" type="text/x-jst">
+  <li><a href="<%= url %>"><%= title.replace(/Jobless in Idaho: /i, '') %></a></li>
+  </script>
 	
 	<script id="table-template" type="text/x-jst">
 	<thead>
@@ -255,8 +255,18 @@
             });
         }
     });
-    
-    $('.data a').popover();
+    $.ajax({
+        url: 'http://stateimpact.npr.org/idaho/api/get_tag_posts/?slug=unemployment&count=5',
+        dataType: 'jsonp',
+        success: function(resp) {
+            var template = _.template($('#headline-template').html()),
+                root = $('#headlines');
+            
+            _.each(resp.posts, function(post, i) {
+                root.append(template(post));
+            });
+        }
+    });
     </script>
     <!-- sharing -->
     <script type="text/javascript" src="//platform.twitter.com/widgets.js"></script>
