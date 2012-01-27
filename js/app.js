@@ -219,6 +219,14 @@
                         && rate.get('adjusted')
                         && !rate.get('preliminary'));
             });
+        },
+        
+        getRate: function(year, month, county) {
+            return this.find(function(rate) {
+                return (rate.get('year') == year // matching a string to a number
+                        && rate.get('month') == month
+                        && rate.get('area') == county + ' County');
+            });
         }
     });
     
@@ -265,9 +273,21 @@
             return new Date(year, MONTHS[month.toLowerCase()]);
         },
         
-        plot: function(year, month) {
-            var umap = this;
-            var rates = this.collection.getMonth(year, month);
+        getFragments: function() {
+            if (Backbone.history) {
+                return Backbone.history.fragment.split('/');
+            } else {
+                return location.hash.replace('#', '').split('/');
+            }
+        },
+        
+        plot: function() {
+            var parts = this.getFragments(),
+                year = parts[0],
+                month = parts[1],
+                county = parts[2];
+            var umap = this,
+                rates = this.collection.getMonth(year, month);
             this.markers.clearLayers();
             _.each(rates, function(rate, i) {
                 var marker = rate.getMarker();
@@ -316,7 +336,7 @@
                 min: min,
                 max: max,
                 step: (max - min) / values.length,
-                animate: true
+                animate: false
             };
         },
         
@@ -610,9 +630,22 @@
             return this;
         },
         
-        render: function(rate) {
-            rate = rate || this.model;
-            var date = window.app.getDate();
+        getRate: function() {
+            if (window.app) {
+                return window.app.getRate();
+            } else {
+                var parts = location.hash.replace('#', '').split('/'),
+                    year = parts[0],
+                    month = parts[1],
+                    county = parts[2];
+                return this.collection.getRate(year, month, county);
+            }
+        },
+        
+        render: function() {
+            // rate = rate || this.model;
+            var rate = this.getRate();
+            // var date = window.app.getDate();
             var idaho = this.collection.find(function(r) {
                 return (r.get('area') === 'Idaho'
                         && _.isEqual(r.get('date'), rate.get('date')));
@@ -662,13 +695,16 @@
         },
         
         showCounty: function(year, month, county) {
-            var date = this.getDate();
+            var date = this.getDate(),
+                rate = this.getRate();
             if (this.collection.length) {
-                window.umap.plot(year, month);
+                window.umap.plot();
                 //window.slider.value(date.valueOf());
+                window.datatable.render();
             } else {
                 this.collection.bind('reset', function(rates) {
-                    window.umap.plot(year, month);
+                    window.umap.plot();
+                    window.datatable.render();
                     // window.slider.value(date.valueOf());
                 });
             }
@@ -697,6 +733,14 @@
             return window.counties.find(function(c) {
                 return c.get('name') === county;
             });
+        },
+        
+        getRate: function() {
+            var parts = Backbone.history.fragment.split('/'),
+                year = parts[0],
+                month = parts[1],
+                county = parts[2];
+            return this.collection.getRate(year, month, county);
         }
     });
     
