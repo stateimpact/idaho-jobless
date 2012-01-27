@@ -82,10 +82,6 @@
                     radius: this.get('unemploymentrate')
                 });
                 this._marker.on('click', function(e) {
-                    if (window.datatable) {
-                        window.datatable.model = rate;
-                        window.datatable.render();
-                    }
                     var route = [rate.get('year'), rate.get('month'), rate.getCounty().get('name')];
                     window.app.navigate(route.join('/'), true);
                 });
@@ -686,7 +682,7 @@
             var date = this.getDate();
             if (this.collection.length) {
                 window.umap.plot(year, month);
-                //window.slider.value(date.valueOf());
+                window.slider.value(date.valueOf());
             } else {
                 this.collection.bind('reset', function(rates) {
                     window.umap.plot(year, month);
