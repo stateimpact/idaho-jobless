@@ -33,7 +33,21 @@ article section,
 article .section-hed { font: 700 24px/1.1 proxima-nova-extra-condensed,sans-serif; text-transform: uppercase; color: #000; }
 
 #map {background: #fff !important; position: relative; }
-#map .legend { position: absolute; top: 15px; right:50px; font-size: 14px; color: #999; line-height: 15px; }
+#map .legend {
+	position: absolute;
+	top: 8px;
+	right: 0;
+	font-size: 14px;
+	color: #999;
+	line-height: 15px;
+	padding: 5px;
+	width: 190px;
+	border: 1px solid #DDD;
+	z-index: 100;
+}
+
+#map .legend p { margin: 10px 0 0 0; }
+#map .legend p.instructions { margin: 0 !important; }
 #map .legend .key { display: inline-block; border-radius: 30px; height: 10px; width: 10px; background: #d8472b; background: rgba(216, 71, 43, .7) }
 .graphic { position: relative; }
 #slider { position: absolute; z-index: 10; top: 108px; width: 611px; }
