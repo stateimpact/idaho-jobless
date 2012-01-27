@@ -180,6 +180,11 @@
         },
         
         getCounty: function(county) {
+            if (_.isString(county)) {
+                county = window.counties.find(function(c) {
+                    return c.get('name') == county || c.get('formalname') == county;
+                });
+            }
             county = county || app.getCounty();
             if (!county) return;
             return this.filter(function(rate) {
@@ -445,6 +450,7 @@
                 type: 'line',
                 data: _.map(national, function(rate) { return rate.get('unemploymentrate') }),
                 name: 'United States',
+                color: chart.options.colors[0],
                 events: {
                    legendItemClick: function(event){
                      return false;
@@ -470,6 +476,7 @@
                 type: 'line',
                 data: _.map(idaho, function(rate) { return rate.get('unemploymentrate') }),
                 name: 'Idaho',
+                color: chart.options.colors[1],
                 events: {
                    legendItemClick: function(event){
                      return false;
@@ -499,6 +506,7 @@
                     type: 'line',
                     data: _.map(countyrates, function(rate) { return rate.get('unemploymentrate') }),
                     name: county.toString(),
+                    color: chart.options.colors[2],
                     events: {
                        legendItemClick: function(event){
                          return false;
@@ -695,13 +703,18 @@
         
         showMonth: function(year, month) {
             var date = this.getDate();
+            if (!_.isEqual(date, this._date)) {
+                this._date = date;
+                this.trigger('change:date', date);
+            }
+            
             if (this.collection.length) {
-                window.umap.plot(year, month);
+                // window.umap.plot(year, month);
                 window.slider.value(date.valueOf());
                 window.datatable.render();
             } else {
                 this.collection.bind('reset', function(rates) {
-                    window.umap.plot(year, month);
+                    // window.umap.plot(year, month);
                     window.slider.value(date.valueOf());
                     window.datatable.render();
                 });
@@ -711,6 +724,12 @@
         showCounty: function(year, month, county) {
             var date = this.getDate(),
                 rate = this.getRate();
+            
+            if (!_.isEqual(date, this._date)) {
+                this._date = date;
+                this.trigger('change:date', date);
+            }
+            
             if (this.collection.length) {
                 window.umap.plot();
                 window.slider.value(date.valueOf());
