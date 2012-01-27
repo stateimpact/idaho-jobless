@@ -6,6 +6,7 @@
     var TILE_URL = "http://a.tiles.mapbox.com/v3/npr.idaho-jobless.jsonp";
     var CENTER = new L.LatLng(45.636, -114.299);
     var ZOOM = 6;
+    var DEFAULT_AREA = "Ada County";
     
     var MONTHS = {
         january: 0,
@@ -86,7 +87,7 @@
                         window.datatable.render();
                     }
                     var route = [rate.get('year'), rate.get('month'), rate.getCounty().get('name')];
-                    window.app.navigate(route.join('/'));
+                    window.app.navigate(route.join('/'), true);
                 });
             }
             return this._marker;
@@ -627,6 +628,13 @@
         
         initialize: function(options) {
             this.collection = options.collection || window.unemploymentrates;
+            var app = this;
+            this.bind('route:showCounty', function(year, month, county) {
+                if (app._county !== county) {
+                    app._county = county;
+                    app.trigger('change:county', county);
+                }
+            });
             return this;
         },
         
@@ -709,5 +717,4 @@
     window.app = new App({ collection: window.unemploymentrates });
     
     Backbone.history.start({ root: '/' });    
-    
 })(window.jQuery);
