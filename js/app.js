@@ -629,13 +629,12 @@
         
         initialize: function(options) {
             this.collection = options.collection || window.unemploymentrates;
-            var app = this;
             this.bind('route:showCounty', function(year, month, county) {
-                if (app._county !== county) {
-                    app._county = county;
-                    app.trigger('change:county', county);
+                if (this._county !== county) {
+                    this._county = county;
+                    this.trigger('change:county', county);
                 }
-            });
+            }, this);
             return this;
         },
         
