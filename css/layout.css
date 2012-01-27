@@ -57,7 +57,7 @@ article .section-hed { font: 700 24px/1.1 proxima-nova-extra-condensed,sans-seri
 #chart { height: 120px; margin-bottom: 10px; }
 .highcharts-tooltip { z-index: 100; }
 .highcharts-tooltip text tspan,
-.highcharts-legend text { font-family: proxima-nova,sans-serif !important; font-size: 14px !important; line-height: 1.1; }
+.highcharts-legend text { font-family: proxima-nova,sans-serif !important; font-size: 14px !important; line-height: 110%; }
 .highcharts-axis text { font-family: proxima-nova,sans-serif !important; font-size: 12px; }
 
 .data table { width: 100%; }
@@ -69,7 +69,7 @@ article .section-hed { font: 700 24px/1.1 proxima-nova-extra-condensed,sans-seri
 .data tbody th { font-size: 14px; color: #999; }
 .data .section th { padding: 20px 0 5px; border-bottom: 1px solid #ccc; font-size: 16px; font-weight: 700; color: #333; width: 100%; }
 .data tbody .rate td { font-size: 42px; line-height: 1; }
-.data a { width: 16px; height: 18px; display: inline-block; text-indent: -999em; background: url(../img/info-bug.png)no-repeat bottom; margin: 0; }
+.data a { width: 16px; height: 18px; display: inline-block; overflow: hidden; text-indent: -999em; background: url(../img/info-bug.png) no-repeat center center; margin: 0; }
 
 .discussion { margin-top: 20px; }
 

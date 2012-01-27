@@ -590,7 +590,7 @@
                     borderRadius: 0,
                     shared: true,
                     formatter: function() {
-                        var s = '<b>'+ this.x +'</b>';
+                        var s = '<strong>'+ this.x +'</strong>';
 
                         _.each(this.points, function(point, i, points) {
                             s += '<br/><span style="font-weight: bold; color:' + point.series.color + ';">' + point.series.name +':</span> '+
