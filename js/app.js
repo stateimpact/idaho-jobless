@@ -497,7 +497,7 @@
                 var countyrates = this.collection.getCounty(county);
                 this.series.county = chart.addSeries({
                     type: 'spline',
-                    data: _.map(function(rate) { return rate.get('unemploymentrate') }),
+                    data: _.map(countyrates, function(rate) { return rate.get('unemploymentrate') }),
                     name: county.toString(),
                     events: {
                        legendItemClick: function(event){
@@ -519,7 +519,7 @@
             return {
                 chart: {
                     renderTo: this.id,
-                    height: 100,
+                    height: 120,
                     width: 620,
                     defaultSeriesType: 'spline',
                     marginLeft: 0,
@@ -568,7 +568,8 @@
                     tickInterval: 1,
                     tickmarkPlacement: 'on',
                     minPadding: 2,
-                    maxPadding: 10
+                    maxPadding: 10,
+                    lineColor: '#ccc'
                 },
                 yAxis: {
                     labels: {
@@ -699,13 +700,13 @@
                 rate = this.getRate();
             if (this.collection.length) {
                 window.umap.plot();
-                //window.slider.value(date.valueOf());
+                window.slider.value(date.valueOf());
                 window.datatable.render();
             } else {
                 this.collection.bind('reset', function(rates) {
                     window.umap.plot();
                     window.datatable.render();
-                    // window.slider.value(date.valueOf());
+                    window.slider.value(date.valueOf());
                 });
             }
         },
