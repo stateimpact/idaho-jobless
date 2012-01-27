@@ -3,10 +3,12 @@
 
 (function($) {
     // setting these up top so I don't have to dig through code later
-    var TILE_URL = "http://a.tiles.mapbox.com/v3/npr.idaho-jobless.jsonp";
-    var CENTER = new L.LatLng(45.636, -114.299);
-    var ZOOM = 6;
-    var DEFAULT_AREA = "Ada County";
+    var TILE_URL = "http://a.tiles.mapbox.com/v3/npr.idaho-jobless.jsonp",
+        CENTER = new L.LatLng(45.636, -114.299),
+        ZOOM = 6,
+        DEFAULT_AREA = "Ada County",
+        ACTIVE_COUNTY_COLOR = '#e38d2c',
+        INACTIVE_COUNTY_COLOR = '#d8472b';
     
     var MONTHS = {
         january: 0,
@@ -72,17 +74,25 @@
         
         getMarker: function(options) {
             if (!this.has('point')) return null;
-            var rate = this;
+            var rate = this, color,
+                county = rate.getCounty();
+            
+            if (county.get('name') == app.getCounty().get('name')) {
+                color = ACTIVE_COUNTY_COLOR;
+            } else {
+                color = '#d8472b'
+            }
             if (!this._marker) {
                 this._marker = new L.CircleMarker(this.get('point'), {
                     weight: 1,
-                    color: '#d8472b',
+                    color: color,
                     opacity: 0.8,
                     fillOpacity: 0.7,
-                    radius: this.get('unemploymentrate')
+                    radius: this.get('unemploymentrate'),
+                    county: county.get('name')
                 });
                 this._marker.on('click', function(e) {
-                    var route = [rate.get('year'), rate.get('month'), rate.getCounty().get('name')];
+                    var route = [rate.get('year'), rate.get('month'), county.get('name')];
                     window.app.navigate(route.join('/'), true);
                 });
             }
@@ -303,6 +313,16 @@
             return this;
         },
         
+        setActive: function(county) {
+            _.each(this.markers._layers, function(marker, i) {
+                if (marker.options.county == county) {
+                    marker.setStyle({ color: ACTIVE_COUNTY_COLOR });
+                } else {
+                    marker.setStyle({ color: INACTIVE_COUNTY_COLOR });
+                }
+            });
+        },
+                
         play: function(start, end) {
             var months = this.collection.getMonths(),
                 current = this.currentMonth(),
