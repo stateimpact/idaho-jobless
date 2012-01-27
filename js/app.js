@@ -84,6 +84,14 @@
                 this._marker.on('click', function(e) {
                     var route = [rate.get('year'), rate.get('month'), rate.getCounty().get('name')];
                     window.app.navigate(route.join('/'), true);
+                    _.each(umap.markers._layers, function(m){
+                        m.setStyle({
+                            color: '#d8472b'
+                        })
+                    });
+                    this.setStyle({
+                        color: '#e38d2c'
+                    })
                 });
             }
             return this._marker;
