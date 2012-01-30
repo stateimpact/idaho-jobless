@@ -677,6 +677,8 @@
             // var date = window.app.getDate();
             var idaho = this.collection.find(function(r) {
                 return (r.get('area') === 'Idaho'
+                        && r.get('adjusted')
+                        && !r.get('preliminary')
                         && _.isEqual(r.get('date'), rate.get('date')));
             });
             var context = rate.toJSON();
