@@ -455,8 +455,8 @@
         
         plot: function(chart) {
             // this.clear(chart);
-            this.plotNational(chart);
-            this.plotIdaho(chart);
+            this.plotNational(chart, false);
+            this.plotIdaho(chart, false);
             this.plotCounty(null, chart);
             return this;
         },
