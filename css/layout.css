@@ -67,6 +67,8 @@ article .section-hed { font: 700 24px/1.1 proxima-nova-extra-condensed,sans-seri
 .data tbody th { width: 50%; }
 .data tbody td { font-size: 24px; padding: 5px 0; }
 .data tbody th { font-size: 14px; color: #999; }
+.data th.state { color: #d8472b; }
+.data th.county { color: #e38d2c; }
 .data .section th { padding: 20px 0 5px; border-bottom: 1px solid #ccc; font-size: 16px; font-weight: 700; color: #333; width: 100%; }
 .data tbody .rate td { font-size: 42px; line-height: 1; }
 .data a { width: 16px; height: 18px; display: inline-block; overflow: hidden; text-indent: -999em; background: url(../img/info-bug.png) no-repeat center center; margin: 0; }
@@ -77,7 +79,7 @@ article .section-hed { font: 700 24px/1.1 proxima-nova-extra-condensed,sans-seri
 #headlines li a:hover { color: #BF3119; }
 
 .profiles p { font-size: 14px; }
-.profiles a.btn { color: #BF3119; text-decoration: none; }
+.profiles a.btn { color: #BF3119; text-decoration: none; cursor: pointer; }
 .profiles a.btn:hover {text-decoration: underline; }
 .profiles #stories p a { display: none; }
 .profile img { float: left; margin: 0 10px 10px 0; }
