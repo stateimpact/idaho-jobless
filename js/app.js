@@ -557,12 +557,6 @@
                     marginLeft: 0,
                     marginRight: 0
                 },
-                events: {
-                    addSeries: function(e) {
-                        console.log(e.options.name);
-                        console.log(this);
-                    }
-                },
                 colors: ['#17807e','#d8472b', '#e38d2c'],
                 credits: {
                     text: null
