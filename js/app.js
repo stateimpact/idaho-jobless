@@ -23,17 +23,17 @@
         october: 9,
         november: 10,
         december: 11
-    }
+    };
     
     var MONTH_NAMES = ["January", "February", "March", 
                        "April", "May", "June", "July", 
                        "August", "September", "October", 
-                       "November", "December"]
+                       "November", "December"];
     
     var YESNO = {
         yes: true,
         no: false
-    }
+    };
     
     window.intcomma = function(value) {
         // inspired by django.contrib.humanize.intcomma
@@ -60,7 +60,7 @@
         
         initialize: function(attributes, options) {
             if (attributes.fips) {
-                this.set({ id: parseInt(attributes.fips) });
+                this.set({ id: attributes.fips });
             }
             
             if (attributes.latitude && attributes.longitude) {
@@ -123,7 +123,7 @@
             if (attributes.year && attributes.month) {
                 var date = new Date(attributes.year, MONTHS[attributes.month.toLowerCase()]);
                 changes.date = date;
-                changes.year = parseInt(attributes.year);
+                changes.year = Number(attributes.year);
             }
             
             if (attributes.preliminary) {
@@ -139,15 +139,15 @@
             }
             
             if (attributes.unemployment) {
-                changes.unemployment = parseInt(attributes.unemployment);
+                changes.unemployment = Number(attributes.unemployment);
             }
             
             if (attributes.employment) {
-                changes.employment = parseInt(attributes.employment);
+                changes.employment = Number(attributes.employment);
             }
             
             if (attributes.laborforce) {
-                changes.laborforce = parseInt(attributes.laborforce);
+                changes.laborforce = Number(attributes.laborforce);
             }
             
             // update everything at once
@@ -178,17 +178,13 @@
         
         latest: function() {
             return this.find(function(rate) {
-                return (rate.has('fips')
-                        && rate.get('adjusted')
-                        && !rate.get('preliminary'));
+                return (rate.has('fips') && rate.get('adjusted') && !rate.get('preliminary'));
             });
         },
         
         getArea: function(area) {
             return this.filter(function(rate) {
-                return (rate.get('area') === area
-                        && rate.get('adjusted')
-                        && !rate.get('preliminary'));
+                return (rate.get('area') === area && rate.get('adjusted') && !rate.get('preliminary'));
             });
         },
         
@@ -209,51 +205,39 @@
             county = county || app.getCounty();
             if (!county) return;
             return this.filter(function(rate) {
-                return (rate.get('area') === county.get('formalname')
-                        && rate.get('adjusted')
-                        && !rate.get('preliminary'));
+                return (rate.get('area') === county.get('formalname') && rate.get('adjusted') && !rate.get('preliminary'));
             });
         },
         
         getMonths: function() {
             // return all unique months in this collection
             var dates = this.pluck('date');
-            return _.unique(dates, true, function(d) { return d.valueOf() });
+            return _.unique(dates, true, function(d) { return d.valueOf(); });
         },
         
         getCountyMonths: function() {
             // return unemployment rates for months with county rates
-            var rates = this.filter(function(rate) { return (rate.has('fips') && rate.get('adjusted') && !rate.get('prelimintary')) }),
-                dates = _.map(rates, function(rate) {return rate.get('date')});
-            return _.unique(dates, true, function(d) { return d.valueOf() });
+            var rates = this.filter(function(rate) { return (rate.has('fips') && rate.get('adjusted') && !rate.get('prelimintary')); }),
+                dates = _.map(rates, function(rate) {return rate.get('date'); });
+            return _.unique(dates, true, function(d) { return d.valueOf(); });
         },
         
         getMonth: function(year, month) {
             if (_.isDate(year)) {
                 var date = year;
                 return this.filter(function(rate) {
-                    return (rate.get('date').getFullYear() === date.getFullYear()
-                            && rate.get('date').getMonth() === date.getMonth()
-                            && rate.get('adjusted')
-                            && !rate.get('preliminary'));
+                    return (rate.get('date').getFullYear() === date.getFullYear() && rate.get('date').getMonth() === date.getMonth() && rate.get('adjusted') && !rate.get('preliminary'));
                 });
             }
             
             return this.filter(function(rate) {
-                return (rate.get('year') == year 
-                        && rate.get('month') == month
-                        && rate.get('adjusted')
-                        && !rate.get('preliminary'));
+                return (rate.get('year') == year && rate.get('month') == month && rate.get('adjusted') && !rate.get('preliminary'));
             });
         },
         
         getRate: function(year, month, county) {
             return this.find(function(rate) {
-                return (rate.get('year') == year // matching a string to a number
-                        && rate.get('month') == month
-                        && rate.get('area') == county + ' County'
-                        && rate.get('adjusted')
-                        && !rate.get('preliminary'));
+                return (rate.get('year') == year && rate.get('month') == month && rate.get('area') == county + ' County' && rate.get('adjusted') && !rate.get('preliminary'));
             });
         }
     });
@@ -415,7 +399,7 @@
         
         getValues: function() {
             var dates = this.collection.getCountyMonths();
-            return _.map(dates, function(d) { return d.valueOf() });
+            return _.map(dates, function(d) { return d.valueOf(); });
         },
         
         value: function(val) {
@@ -432,7 +416,7 @@
         
         initialize: function(options) {
             _.bindAll(this);
-            this.series = {}
+            this.series = {};
             this.el = $(this.id)[0];
             if (this.collection.length) {
                 this.makeChart();
@@ -459,7 +443,7 @@
         },
         
         clear: function(chart) {
-            chart || (chart = this.chart);
+            chart = chart || this.chart;
             for (var line in this.series) {
                 this.series[line].remove(false);
             }
@@ -478,15 +462,15 @@
         plotNational: function(chart, redraw) {
             // national
             redraw = redraw || true;
-            var national = this.collection.getNational(),
-                chart = chart || this.chart;
+            chart = chart || this.chart;
+            var national = this.collection.getNational();
             
             if (this.series.national) {
-                this.series.national.remove(redraw)
+                this.series.national.remove(redraw);
             }
             this.series.national = chart.addSeries({
                 type: 'line',
-                data: _.map(national, function(rate) { return rate.get('unemploymentrate') }),
+                data: _.map(national, function(rate) { return rate.get('unemploymentrate'); }),
                 name: 'United States',
                 color: chart.options.colors[0],
                 events: {
@@ -504,15 +488,15 @@
         
         plotIdaho: function(chart, redraw) {
             redraw = redraw || true;
-            var idaho = this.collection.getIdaho(),
-                chart = chart || this.chart;
-            
+            chart = chart || this.chart;
+            var idaho = this.collection.getIdaho();
+
             if (this.series.idaho) {
-                this.series.idaho.remove(redraw)
+                this.series.idaho.remove(redraw);
             }
             this.series.idaho = chart.addSeries({
                 type: 'line',
-                data: _.map(idaho, function(rate) { return rate.get('unemploymentrate') }),
+                data: _.map(idaho, function(rate) { return rate.get('unemploymentrate'); }),
                 name: 'Idaho',
                 color: chart.options.colors[1],
                 events: {
@@ -531,8 +515,8 @@
         plotCounty: function(county, chart, redraw) {
             // county
             redraw = redraw || true;
-            county = county || app.getCounty(),
-                chart = chart || this.chart;
+            county = county || app.getCounty();
+            chart = chart || this.chart;
             
             if (this.series.county) {
                 this.series.county.remove(redraw);
@@ -542,7 +526,7 @@
                 var countyrates = this.collection.getCounty(county);
                 this.series.county = chart.addSeries({
                     type: 'line',
-                    data: _.map(countyrates, function(rate) { return rate.get('unemploymentrate') }),
+                    data: _.map(countyrates, function(rate) { return rate.get('unemploymentrate'); }),
                     name: county.toString(),
                     color: chart.options.colors[2],
                     events: {
@@ -635,7 +619,6 @@
                     shared: true,
                     borderWidth: 0,
                     borderRadius: 0,
-                    shared: true,
                     formatter: function() {
                         var s = '<strong>'+ this.x +'</strong>';
 
@@ -672,7 +655,7 @@
                     }
                 },
                 symbol: null
-            }
+            };
         }
     });
     
@@ -700,10 +683,7 @@
             var rate = this.getRate();
             // var date = window.app.getDate();
             var idaho = this.collection.find(function(r) {
-                return (r.get('area') === 'Idaho'
-                        && r.get('adjusted')
-                        && !r.get('preliminary')
-                        && _.isEqual(r.get('date'), rate.get('date')));
+                return (r.get('area') === 'Idaho' && r.get('adjusted') && !r.get('preliminary') && _.isEqual(r.get('date'), rate.get('date')));
             });
             var context = rate.toJSON();
             context.idaho = idaho.toJSON();
@@ -797,9 +777,7 @@
         getDefaultRate: function() {
             // return the most recent rate for DEFAULT_AREA
             return this.collection.chain().filter(function(rate) {
-                return (rate.get('area') == DEFAULT_AREA
-                        && rate.get('adjusted')
-                        && !rate.get('preliminary'));
+                return (rate.get('area') == DEFAULT_AREA && rate.get('adjusted') && !rate.get('preliminary'));
             }).last().value();
         },
         
@@ -833,8 +811,8 @@
     });
     
     // global instances
-    window.counties = new CountyCollection;
-    window.unemploymentrates = new UnemploymentRateCollection;
+    window.counties = new CountyCollection();
+    window.unemploymentrates = new UnemploymentRateCollection();
     window.umap = new UnemploymentMap({ 
         el: '#map', 
         collection: window.unemploymentrates, 
@@ -848,5 +826,5 @@
     window.datatable = new TableView({ el: '#comparison', collection: window.unemploymentrates });
     window.app = new App({ collection: window.unemploymentrates });
     
-    Backbone.history.start({ root: '/' });    
+    Backbone.history.start();    
 })(window.jQuery);
