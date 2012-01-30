@@ -26,9 +26,9 @@
     }
     
     var MONTH_NAMES = ["January", "February", "March", 
-     "April", "May", "June", "July", 
-     "August", "September", "October", 
-     "November", "December"]
+                       "April", "May", "June", "July", 
+                       "August", "September", "October", 
+                       "November", "December"]
     
     var YESNO = {
         yes: true,
@@ -91,7 +91,7 @@
             if (county.get('name') == app.getCounty().get('name')) {
                 color = ACTIVE_COUNTY_COLOR;
             } else {
-                color = '#d8472b'
+                color = INACTIVE_COUNTY_COLOR;
             }
             if (!this._marker) {
                 this._marker = new L.CircleMarker(this.get('point'), {
@@ -327,13 +327,18 @@
         },
         
         setActive: function(county) {
-            _.each(this.markers._layers, function(marker, i) {
-                if (marker.options.county == county) {
-                    marker.setStyle({ color: ACTIVE_COUNTY_COLOR });
-                } else {
-                    marker.setStyle({ color: INACTIVE_COUNTY_COLOR });
-                }
+            _(this.markers._layers).chain().filter(function(marker) {
+                return marker.options.color == ACTIVE_COUNTY_COLOR;
+            }).each(function(marker, i) {
+                marker.setStyle({ color: INACTIVE_COUNTY_COLOR });
             });
+            
+            var active = _.find(this.markers._layers, function(marker, i) {
+                return marker.options.county == county;
+            });
+            if (active) {
+                active.setStyle({ color: ACTIVE_COUNTY_COLOR });
+            }
         },
                 
         play: function(start, end) {
