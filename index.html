@@ -209,8 +209,8 @@
         <th><%= area %></th>
       </tr>
       <tr>
-        <td><%= idaho.laborforce %></td>
-        <td><%= laborforce %></td>
+        <td><%= intcomma(idaho.laborforce) %></td>
+        <td><%= intcomma(laborforce) %></td>
       </tr>
       <tr class="section unemployed">
         <th colspan="2">Unemployed <a data-placement="above" title="Unemployed" href="#" class="btn danger" rel="popover" data-content="Portion of civilian workforce that is not employed with paid, non-farm jobs.">info</a></th>
@@ -220,8 +220,8 @@
         <th><%= area %></th>
       </tr>
       <tr>
-        <td><%= idaho.unemployment %></td>
-        <td><%= unemployment %></td>
+        <td><%= intcomma(idaho.unemployment) %></td>
+        <td><%= intcomma(unemployment) %></td>
       </tr>
     </tbody>
 	</script>

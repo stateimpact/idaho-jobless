@@ -35,6 +35,17 @@
         no: false
     }
     
+    window.intcomma = function(value) {
+        // inspired by django.contrib.humanize.intcomma
+        var origValue = String(value);
+        var newValue = origValue.replace(/^(-?\d+)(\d{3})/, '$1,$2');
+        if (origValue == newValue){
+            return newValue;
+        } else {
+            return intcomma(newValue);
+        }
+    };
+    
     // models
     window.County = Backbone.Model.extend({
         
