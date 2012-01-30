@@ -455,9 +455,13 @@
         
         plot: function(chart) {
             // this.clear(chart);
+            chart = chart || this.chart;
             this.plotNational(chart, false);
             this.plotIdaho(chart, false);
             this.plotCounty(null, chart);
+            if (jQuery.browser.msie && chart.series.length > 3) {
+                chart.series[0].remove(true);
+            }
             return this;
         },
         
