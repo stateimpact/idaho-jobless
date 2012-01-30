@@ -16,6 +16,16 @@
 
 /* #Site Styles
 ================================================== */
+.si-nav nav ul { font-family: proxima-nova-extra-condensed,sans-serif; position: absolute; right: 0; height: 50px; }
+		.si-nav nav li { 
+			float: left; 
+			line-height: 50px; 
+			font-size: 16px; 
+			font-weight: 600; 
+			text-transform: uppercase; 
+			margin-left: 25px;
+		}
+		.si-nav li a, .si-nav li a:hover, .si-nav li a:visited { color: #999; }
 
 article header .headline { font: 700 42px/1 proxima-nova-extra-condensed; color: #000; text-transform: uppercase; margin: 0; }
 article header .subhead { font-size: 18px; line-height: 1.2; font-weight: 600; color: #666; }
