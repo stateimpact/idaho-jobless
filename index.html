@@ -241,16 +241,17 @@
     <script src="js/bootstrap-popover.js"></script>
     <script src="js/app.js"></script>
     <script>
+    window.app.bind('change:county', function(county) {
+        window.hichart.plotCounty(county);
+        window.umap.setActive(county);
+    });
+
     $.getJSON('data/counties.json', function(data) {
         window.counties.reset(data);
     });
     
     $.getJSON('data/unemployment-05-11.json', function(data) {
         window.unemploymentrates.reset(data);
-        window.app.bind('change:county', function(county) {
-            window.hichart.plotCounty(county);
-            window.umap.setActive(county);
-        });
         
         window.app.bind('change:date', function(date) {
             window.umap.plot();
