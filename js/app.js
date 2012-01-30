@@ -662,7 +662,12 @@
                             }
                         },
                         events: {
-                            click: null
+                            click: function(p){
+                                var date = p.point.category,
+                                    county = location.hash.split('/')[2],
+                                    url = app.getUrl(date.split(' ')[1], date.split(' ')[0], county);
+                                app.navigate(url, true);
+                            }
                         }
                     }
                 },
