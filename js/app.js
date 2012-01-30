@@ -87,8 +87,9 @@
             if (!this.has('point')) return null;
             var rate = this, color,
                 county = rate.getCounty();
+                activeCounty = location.hash.split('/')[2];
             
-            if (county.get('name') == app.getCounty().get('name')) {
+            if (county.get('name') == activeCounty) {
                 color = ACTIVE_COUNTY_COLOR;
             } else {
                 color = INACTIVE_COUNTY_COLOR;
