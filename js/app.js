@@ -87,7 +87,7 @@
             if (!this.has('point')) return null;
             var rate = this, color,
                 county = rate.getCounty();
-                activeCounty = location.hash.split('/')[2];
+                activeCounty = location.hash.split('/')[2] || "";
             
             if (county.get('name') == activeCounty) {
                 color = ACTIVE_COUNTY_COLOR;
@@ -420,7 +420,8 @@
             this.series = {};
             this.el = $(this.id)[0];
             if (this.collection.length) {
-                this.makeChart();
+                var makeChart = this.makeChart;
+                _.defer(makeChart);
             } else {
                 var chart = this;
                 this.collection.bind('reset', function(models) {
