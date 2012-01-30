@@ -240,7 +240,9 @@
             return this.find(function(rate) {
                 return (rate.get('year') == year // matching a string to a number
                         && rate.get('month') == month
-                        && rate.get('area') == county + ' County');
+                        && rate.get('area') == county + ' County'
+                        && rate.get('adjusted')
+                        && !rate.get('preliminary'));
             });
         }
     });
