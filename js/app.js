@@ -609,7 +609,8 @@
                     },
                     tickInterval: 1,
                     tickmarkPlacement: "on",
-                    min: 0
+                    min: 0,
+                    max: 20
                 },
                 tooltip: {
                     crosshairs: false,
