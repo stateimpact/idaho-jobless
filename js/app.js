@@ -312,18 +312,13 @@
         },
         
         setActive: function(county) {
-            _(this.markers._layers).chain().filter(function(marker) {
-                return marker.options.color == ACTIVE_COUNTY_COLOR;
-            }).each(function(marker, i) {
-                marker.setStyle({ color: INACTIVE_COUNTY_COLOR });
+            _.each(this.markers._layers, function(marker, i) {
+                if (marker.options.county == county) {
+                    marker.setStyle({ color: ACTIVE_COUNTY_COLOR });
+                } else {
+                    marker.setStyle({ color: INACTIVE_COUNTY_COLOR });
+                }
             });
-            
-            var active = _.find(this.markers._layers, function(marker, i) {
-                return marker.options.county == county;
-            });
-            if (active) {
-                active.setStyle({ color: ACTIVE_COUNTY_COLOR });
-            }
         },
                 
         play: function(start, end) {
@@ -458,6 +453,9 @@
             this.plotNational(chart, false);
             this.plotIdaho(chart, false);
             this.plotCounty(null, chart);
+            if (jQuery.browser.msie) {
+                console.log(this.chart.series[0].remove());
+            }
             return this;
         },
         
