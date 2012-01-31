@@ -26,7 +26,9 @@ body { font-family: proxima-nova,"Helvetica Neue",Arial,sans-serif; font-size: 1
 			font-weight: 600; 
 			text-transform: uppercase; 
 			margin-left: 25px;
-		}
+		}		
+		.si-nav li a { text-decoration: none; }
+		.si-nav li a:hover { text-decoration: underline; }
 		.si-nav li a, .si-nav li a:hover, .si-nav li a:visited { color: #999; }
 
 article header { text-align: right; }
