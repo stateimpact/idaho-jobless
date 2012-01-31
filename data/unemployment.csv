@@ -1,4 +1,4 @@
-year,period,area,adjusted,laborforce,employment,unemployment,unemploymentrate,preliminary,fips,longitude,latitude
+year,month,area,adjusted,laborforce,employment,unemployment,unemploymentrate,preliminary,fips,longitude,latitude
 2011,February,Ada County,Yes,194834,176217,18617,9.5,No,16001,-116.24203,43.47877
 2011,January,Ada County,Yes,194692,176463,18228,9.3,No,16001,-116.24203,43.47877
 2011,March,Ada County,Yes,196069,177729,18339,9.3,No,16001,-116.24203,43.47877

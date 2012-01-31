@@ -94,21 +94,19 @@
             } else {
                 color = INACTIVE_COUNTY_COLOR;
             }
-            if (!this._marker) {
-                this._marker = new L.CircleMarker(this.get('point'), {
-                    weight: 1,
-                    color: color,
-                    opacity: 0.8,
-                    fillOpacity: 0.7,
-                    radius: this.get('unemploymentrate'),
-                    county: county.get('name')
-                });
-                this._marker.on('click', function(e) {
-                    var route = [rate.get('year'), rate.get('month'), county.get('name')];
-                    window.app.navigate(route.join('/'), true);
-                });
-            }
-            return this._marker;
+            var marker = new L.CircleMarker(this.get('point'), {
+                weight: 1,
+                color: color,
+                opacity: 0.8,
+                fillOpacity: 0.7,
+                radius: this.get('unemploymentrate'),
+                county: county.get('name')
+            });
+            marker.on('click', function(e) {
+                var route = [rate.get('year'), rate.get('month'), county.get('name')];
+                window.app.navigate(route.join('/'), true);
+            });
+            return marker;
         },
         
         normalize: function(attributes) {
@@ -683,7 +681,9 @@
             // rate = rate || this.model;
             var rate = this.getRate();
             // var date = window.app.getDate();
+            if (!rate) return;
             var idaho = this.collection.find(function(r) {
+                if (!r) return;
                 return (r.get('area') === 'Idaho' && r.get('adjusted') && !r.get('preliminary') && _.isEqual(r.get('date'), rate.get('date')));
             });
             var context = rate.toJSON();
