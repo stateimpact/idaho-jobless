@@ -250,7 +250,7 @@
         window.counties.reset(data);
     });
     
-    $.getJSON('data/unemployment-05-11.json', function(data) {
+    $.getJSON('data/unemployment.json', function(data) {
         window.unemploymentrates.reset(data);
         
         window.app.bind('change:date', function(date) {

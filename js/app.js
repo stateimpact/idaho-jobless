@@ -31,8 +31,10 @@
                        "November", "December"];
     
     var YESNO = {
-        yes: true,
-        no: false
+        'yes'  : true,
+        'true' : true,
+        'no'   : false,
+        'false': false
     };
     
     window.intcomma = function(value) {
@@ -588,7 +590,9 @@
                         enabled: true,
                         step: 12,
                         formatter: function() {
-                            return this.value.replace("January", "");
+                            if (this.value.replace) {
+                                return this.value.replace("January", "");
+                            }
                         },
                         x: 10,
                         y: 18
