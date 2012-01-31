@@ -16,6 +16,8 @@
 
 /* #Site Styles
 ================================================== */
+html { margin: 0; }
+body { font-family: proxima-nova,"Helvetica Neue",Arial,sans-serif; font-size: 16px; }
 .si-nav nav ul { font-family: proxima-nova-extra-condensed,sans-serif; position: absolute; right: 0; height: 50px; }
 		.si-nav nav li { 
 			float: left; 
@@ -63,7 +65,8 @@ article .section-hed { font: 700 24px/1.1 proxima-nova-extra-condensed,sans-seri
 #map .legend p.instructions { margin: 0 !important; }
 #map .legend .key { display: inline-block; border-radius: 30px; height: 10px; width: 10px; background: #d8472b; background: rgba(216, 71, 43, .7) }
 .graphic { position: relative; }
-#slider { position: absolute; z-index: 10; top: 128px; width: 611px; }
+.graphic h2.section-hed { margin-bottom: 0; }
+#slider { position: absolute; z-index: 10; top: 118px; width: 611px; }
 #slider a { position: absolute; display: block; top: 0; height: 19px; width: 9px; background: url(../img/slider.png) no-repeat; }
 .graphic h3 { font-size: 14px; text-transform: uppercase; font-weight: normal; color: #999; line-height: 1; }
 #chart { height: 120px; margin-bottom: 10px; }
@@ -120,7 +123,7 @@ article .section-hed { font: 700 24px/1.1 proxima-nova-extra-condensed,sans-seri
 	background: url(../img/close.png) no-repeat; 
 }
 
-.project-info { }
+textarea { font-family: "Helvetica Neue",Arial,sans-serif; }
 
 footer.container { color: #333; margin-top: 20px; border-top: 1px solid #ccc; padding-top: 10px; }
 footer h2 { font-size: 16px; font-weight: 300; color: #fff; border-bottom: 4px solid #ccc; text-transform: uppercase; margin-bottom: 9px;  }
