@@ -534,7 +534,7 @@
                 this.series.county = chart.addSeries({
                     type: 'line',
                     data: _.map(countyrates, function(rate) { return rate.get('unemploymentrate'); }),
-                    name: county.toString(),
+                    name: county.get('formalname'),
                     color: chart.options.colors[2],
                     events: {
                        legendItemClick: function(event){
