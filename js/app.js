@@ -478,8 +478,7 @@
                    }
                 },
                 marker:{
-                  radius: 0,
-                  symbol: null
+                  radius: 0
                 }
             });
             return this;
@@ -504,8 +503,7 @@
                    }
                 },
                 marker:{
-                  radius: 0,
-                  symbol: null
+                  radius: 0
                 }
             });
             return this;
@@ -540,8 +538,7 @@
                        }
                     },
                     marker:{
-                      radius: 0,
-                      symbol: null
+                      radius: 0
                     }
                 });
             }
@@ -653,7 +650,7 @@
                         }
                     }
                 },
-                symbol: null
+                symbols: ['circle','circle','circle','circle','circle']
             };
         }
     });
