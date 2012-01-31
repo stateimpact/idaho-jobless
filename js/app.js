@@ -590,8 +590,10 @@
                         enabled: true,
                         step: 12,
                         formatter: function() {
-                            if (this.value.replace) {
+                            if (_.isString(this.value) && this.value.match(/\w+ \d{4}/)) {
                                 return this.value.replace("January", "");
+                            } else {
+                                return ""
                             }
                         },
                         x: 10,

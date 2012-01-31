@@ -1386,20 +1386,6 @@
         "employment": "4245"
     }, 
     {
-        "unemploymentrate": "8.6", 
-        "adjusted": "TRUE", 
-        "area": "United States", 
-        "unemployment": "13303000", 
-        "laborforce": "153883000", 
-        "longitude": "", 
-        "month": "November", 
-        "fips": "", 
-        "preliminary": "FALSE", 
-        "year": "2011", 
-        "latitude": "", 
-        "employment": "140580000"
-    }, 
-    {
         "unemploymentrate": "8.7", 
         "adjusted": "TRUE", 
         "area": "United States", 
