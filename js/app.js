@@ -523,6 +523,12 @@
                 this.series.county.remove(redraw);
             }
             
+            if (_.isString(county)) {
+                county = window.counties.find(function(c) {
+                    return c.get('name') == county || c.get('formalname') == county;
+                });
+            }
+            
             if (county) {
                 var countyrates = this.collection.getCounty(county);
                 this.series.county = chart.addSeries({
