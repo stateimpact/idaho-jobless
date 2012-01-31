@@ -28,6 +28,7 @@
 		.si-nav li a, .si-nav li a:hover, .si-nav li a:visited { color: #999; }
 
 article header .headline { font: 700 42px/1 proxima-nova-extra-condensed; color: #000; text-transform: uppercase; margin: 0; }
+article header .headline span { color: #a33622; }
 article header .subhead { font-size: 18px; line-height: 1.2; font-weight: 600; color: #666; }
 .intro h4 { color: #999; font-weight: 400; font-size: 14px;  line-height: 17px; }
 		.intro .credit { margin-bottom: 10px; }
