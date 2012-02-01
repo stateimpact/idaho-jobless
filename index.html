@@ -16,7 +16,7 @@
     
     <!-- opengraph -->
     <meta property="og:title" content="Work in Progress: Tracking Unemployment in Idaho">
-    <meta property="og:image" content="img/idaho-jobless.png">
+    <meta property="og:image" content="http://stateimpact.npr.org/maps/idaho/idaho-unemployment/img/idaho-jobless.png">
 
 	<!-- Mobile Specific Metas
   ================================================== -->
@@ -62,7 +62,7 @@
       <!-- <h4>A reporting project of local public media <br />and <a class="nprlogo" href="http://npr.org" title="Visit npr.org">NPR</a></h4> -->
         </div>
         <div class="eight columns">
-          <p>The jobless rate in Idaho is declining, and is now lower than the nation. Still, thousands in the Gem State remain unemployed following the 2008 financial crisis. Use this tool to track unemployment by county over time, read personal accounts of Idahoans still seeking work, and please <a class="btn" data-controls-modal="share-modal" data-backdrop="true">tell us your story</a>.</p>
+          <p>The jobless rate in Idaho is declining, and is now lower than the nation. Still, thousands in the Gem State remain unemployed following the 2008 financial crisis. Use this tool to track unemployment by county over time, read personal accounts of Idahoans still seeking work, and please <a href="#" class="btn share-modal" data-controls-modal="share-modal" data-backdrop="true">tell us your story</a>.</p>
           <ul class="sharing">
             <li><a href="https://twitter.com/share" class="twitter-share-button" data-count="none" data-via="NPRStateImpact">Tweet</a></li>
             <li><div class="fb-like" data-width="150" data-layout="button_count" data-show-faces="false"></div></li>
@@ -73,7 +73,7 @@
       <div class="four columns">
         <section class="profiles">
           <h2 class="section-hed">IDAHO JOBLESS STORIES</h2>
-          <p>Read their stories. <a class="btn" data-controls-modal="share-modal" data-backdrop="true">Tell us yours</a>.</p>
+          <p>Read their stories. <a href="#" class="btn share-modal" data-controls-modal="share-modal" data-backdrop="true">Tell us yours</a>.</p>
           <div id="stories"></div>
         </section>
         <div class="clearfix"></div>
@@ -304,6 +304,7 @@
          loadChartbeat : function() { oldonload(); loadChartbeat(); };
     })();
     </script>
+    <script src="js/events.js"></script>
 <!-- End Document
 ================================================== -->
 </body>

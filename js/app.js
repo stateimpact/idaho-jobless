@@ -257,7 +257,7 @@
                 map.addLayer(new wax.leaf.connector(tilejson))
                 .setView(CENTER, ZOOM);
             });
-            this.markers = new L.LayerGroup();
+            this.markers = new L.FeatureGroup();
             this.map.addLayer(this.markers);
             return this;
         },
