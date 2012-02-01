@@ -32,7 +32,7 @@ body { font-family: proxima-nova,"Helvetica Neue",Arial,sans-serif; font-size: 1
 		.si-nav li a, .si-nav li a:hover, .si-nav li a:visited { color: #999; }
 
 article header { text-align: right; }
-article header .headline { font: 700 42px/1 proxima-nova-extra-condensed; color: #a33622; text-transform: uppercase; margin: 0; }
+article header .headline { font: 700 42px/1 proxima-nova-extra-condensed; color: #BF3119; text-transform: uppercase; margin: 0; }
 article header .headline span { color: #000; }
 article header .subhead { font-size: 18px; line-height: 1.2; font-weight: 600; color: #666; }
 .intro h4 { color: #999; font-weight: 400; font-size: 14px;  line-height: 17px; }
@@ -127,7 +127,7 @@ article .section-hed { font: 700 24px/1.1 proxima-nova-extra-condensed,sans-seri
 
 textarea { font-family: "Helvetica Neue",Arial,sans-serif; }
 
-footer.container { color: #333; margin-top: 20px; border-top: 1px solid #ccc; padding-top: 10px; }
+footer.container { color: #333; margin-top: 20px; border-top: 1px solid #ccc; padding-top: 10px; width: 940px; }
 footer h2 { font-size: 16px; font-weight: 300; color: #fff; border-bottom: 4px solid #ccc; text-transform: uppercase; margin-bottom: 9px;  }
 footer p, 
 footer li, 
