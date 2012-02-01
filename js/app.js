@@ -358,7 +358,8 @@
             return {
                 min: min,
                 max: max,
-                step: (max - min) / values.length,
+                // This is problematic because it assumes every month is the same length.
+                step: (max - min) / values.length, 
                 animate: false
             };
         },
