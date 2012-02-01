@@ -342,9 +342,11 @@
         initialize: function(options) {
             _.bindAll(this);
             var view = this;
+            this.months = this.collection.getCountyMonths();
             this.slider = $(this.el).slider(this.slideOpts());            
             this.collection.bind('reset', function(models) {
                 // reset options when the collection changes
+                view.months = view.collection.getCountyMonths();
                 view.slider.slider('option', view.slideOpts());
             });
             
@@ -352,23 +354,22 @@
         },
         
         slideOpts: function() {
-            var values = this.getValues(),
-                min = _.min(values),
-                max = _.max(values);
             return {
-                min: min,
-                max: max,
+                min: 0,
+                max: this.months.length,
                 // This is problematic because it assumes every month is the same length.
-                step: (max - min) / values.length, 
+                step: 1, 
                 animate: false
             };
         },
         
         slideEvents: function() {
             // breaking out slide events heres
-            var county, display = this.$('p span');
+            var values = this.collection.getCountyMonths(),
+                county, display = this.$('p span'),
+                view = this;
             this.slider.bind('slide', function(e, ui) {
-                var date = new Date(ui.value),
+                var date = view.months[ui.value],
                     county = location.hash.split('/')[2],
                     url = app.getUrl(date.getFullYear(), date.toString('MMMM'), county);
                 display.text(date.toString('MMM yyyy'));
@@ -392,11 +393,6 @@
             this.county = county; // just hold onto this for a moment
             
             return new Date(year, MONTHS[month.toLowerCase()]);
-        },
-        
-        getValues: function() {
-            var dates = this.collection.getCountyMonths();
-            return _.map(dates, function(d) { return d.valueOf(); });
         },
         
         value: function(val) {
