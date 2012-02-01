@@ -379,6 +379,13 @@
             return this;
         },
         
+        toDate: function(date) {
+            date = date || this.currentMonth();
+            var months = _.invoke(this.months, 'valueOf');
+            var index = _.indexOf(months, date.valueOf(), true);
+            this.value(index);
+        },
+        
         currentMonth: function() {
             // get the current month, based on the URL
             var parts;
@@ -737,12 +744,12 @@
             
             if (this.collection.length) {
                 // window.umap.plot(year, month);
-                window.slider.value(date.valueOf());
+                window.slider.toDate(date);
                 window.datatable.render();
             } else {
                 this.collection.bind('reset', function(rates) {
                     // window.umap.plot(year, month);
-                    window.slider.value(date.valueOf());
+                    window.slider.toDate(date);
                     window.datatable.render();
                 });
             }
@@ -759,13 +766,13 @@
             
             if (this.collection.length) {
                 window.umap.plot();
-                window.slider.value(date.valueOf());
+                window.slider.toDate(date);
                 window.datatable.render();
             } else {
                 this.collection.bind('reset', function(rates) {
                     window.umap.plot();
                     window.datatable.render();
-                    window.slider.value(date.valueOf());
+                    window.slider.toDate(date);
                 });
             }
         },
