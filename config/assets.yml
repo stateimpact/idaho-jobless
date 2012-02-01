@@ -1,0 +1,26 @@
+package_assets: on
+embed_assets: off
+compress_assets: off
+gzip_assets: off
+
+javascripts:
+    app:
+        - js/jquery-ui-1.8.17.custom.js
+        - js/underscore-min.js
+        - js/backbone-min.js
+        - js/leaflet/leaflet.js
+        - js/wax/dist/wax.leaf.min.js
+        - js/date.js
+        - js/highcharts.js
+        - js/bootstrap-twipsy.js
+        - js/bootstrap-modal.js
+        - js/bootstrap-popover.js
+        - js/app.js
+    
+stylesheets:
+    main:
+        - css/base.css
+        - css/skeleton.css
+        - css/layout.css
+        - js/leaflet/leaflet.css
+        - css/map.css
