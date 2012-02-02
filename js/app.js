@@ -566,7 +566,7 @@
                 },
                 colors: ['#17807e','#d8472b', '#e38d2c'],
                 credits: {
-                    text: null
+                    text: ""
                 },
                 title: {
                     text: null
