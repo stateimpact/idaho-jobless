@@ -829,8 +829,7 @@
         zoomControl: false, 
         touchZoom: false,
         attributionControl: false,
-        doubleClickZoom: false,
-        dragging: false
+        doubleClickZoom: false
     });
     window.slider = new Slider({ el: '#slider', collection: window.unemploymentrates });
     window.hichart = new Chart({ id: 'chart', collection: window.unemploymentrates });
