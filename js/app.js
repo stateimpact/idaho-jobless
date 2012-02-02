@@ -105,6 +105,7 @@
                 county: county.get('name')
             });
             marker.on('click', function(e) {
+                alert('click');
                 var route = [rate.get('year'), rate.get('month'), county.get('name')];
                 window.app.navigate(route.join('/'), true);
             });
@@ -826,13 +827,22 @@
         collection: window.unemploymentrates, 
         scrollWheelZoom: false, 
         zoomControl: false, 
+        touchZoom: false,
         attributionControl: false,
-        doubleClickZoom: false 
+        doubleClickZoom: false,
+        dragging: false
     });
     window.slider = new Slider({ el: '#slider', collection: window.unemploymentrates });
     window.hichart = new Chart({ id: 'chart', collection: window.unemploymentrates });
     window.datatable = new TableView({ el: '#comparison', collection: window.unemploymentrates });
     window.app = new App({ collection: window.unemploymentrates });
     
-    Backbone.history.start();    
+    Backbone.history.start(); 
+    var disqus_developer = 1;
+    var disqus_shortname = 'stateimpactid'; // required: replace example with your forum shortname
+      (function() {
+          var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+          dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+          (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();   
 })(window.jQuery);

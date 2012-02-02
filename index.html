@@ -104,16 +104,15 @@
           <h2 class="section-hed">WHAT DID YOU FIND IN THIS INTERACTIVE?</h2>
           <div id="disqus_thread"></div>
           <script type="text/javascript">
-              /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+              /*
               var disqus_developer = 1;
               var disqus_shortname = 'stateimpactid'; // required: replace example with your forum shortname
-
-              /* * * DON'T EDIT BELOW THIS LINE * * */
               (function() {
                   var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
                   dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
                   (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
               })();
+              */
           </script>
           <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
         </div>
@@ -242,7 +241,6 @@
     window.unemploymentrates.bind('reset', function() {
         window.hichart.plot();
     });
-    
     $.ajax({
         url: 'http://stateimpact.npr.org/idaho/api/get_tag_posts/?slug=jobless-profile&count=5',
         dataType: 'jsonp',
