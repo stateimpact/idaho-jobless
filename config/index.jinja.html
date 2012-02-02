@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--><html lang="en"> <!--<![endif]-->
+<head>
+    <script type="text/javascript">var _sf_startpt=(new Date()).getTime()</script>
+	<!-- Basic Page Needs
+  ================================================== -->
+	<meta charset="utf-8">
+
+	<title>Tracking Unemployment in Idaho | StateImpact Idaho | Bringing the Economy Home</title>
+
+	<meta name="description" content="Tracking Unemployment in Idaho">
+	<meta name="author" content="NPR StateImpact Idaho">
+    
+    <!-- opengraph -->
+    <meta property="og:title" content="Work in Progress: Tracking Unemployment in Idaho">
+    <meta property="og:image" content="http://stateimpact.npr.org/maps/idaho/unemployment/img/idaho-jobless.png">
+    <meta property="og:description" content="The jobless rate in Idaho is declining, but thousands in the Gem State remain unemployed following the 2008 financial crisis. Use this tool to track unemployment by county over time, read personal accounts of Idahoans still seeking work, and please tell us your story.">
+
+	<!-- Mobile Specific Metas
+  ================================================== -->
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<script src="http://stateimpact.npr.org/wp-content/themes/stateimpact-hub/js/modernizr-1.6.min.js"></script> 
+	<script type="text/javascript" src="http://use.typekit.com/yey2zgp.js"></script>
+	<script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+
+	<!-- CSS
+  ================================================== -->
+	<link rel="stylesheet" href="css/base.css">
+	<link rel="stylesheet" href="css/skeleton.css">
+	<link rel="stylesheet" href="css/layout.css">
+	<link rel="stylesheet" href="js/leaflet/leaflet.css" type="text/css">
+	<link rel="stylesheet" href="css/map.css" type="text/css" media="screen">
+	<!--[if IE]>
+	<link rel="stylesheet" href="js/leaflet/leaflet.ie.css" type="text/css">
+	<![endif]-->
+	<!-- Favicons
+	================================================== -->
+	<link rel="icon" href="http://stateimpact.npr.org/texas/wp-content/themes/statewatch/img/favicon.png"/>
+</head>
+<body>
+
+<header class="si-nav">
+  <div class="container"> 
+  	<nav>
+  		<h2><a href="http://stateimpact.npr.org">StateImpact</a></h2>
+  		<h3><a href="http://stateimpact.npr.org/idaho/">Idaho</a></h3>
+      <ul>
+        <li><a href="http://stateimpact.npr.org/idaho/about/">About StateImpact Idaho</a></li>
+      </ul>
+  	</nav>	
+  </div>
+</header>
+    <article id="container" class="container">
+      <header class="intro row">
+        <div class="four columns">
+          <h1 class="headline">Work <span>in Progress</span></h1>
+          <h2 class="subhead">Tracking Unemployment in Idaho</h2>
+          <h4 class="credit">By <a href="mailto:camico@npr.org">Chris Amico</a>, <a href="mailto:ddbelius@npr.org">Danny DeBelius</a>, <br /> <a href="mailto:jpupovac@npr.org">Jessica Pupovac</a> and <a href="mailto:mstiles@npr.org">Matt Stiles</a></h4>
+      <!-- <h4>A reporting project of local public media <br />and <a class="nprlogo" href="http://npr.org" title="Visit npr.org">NPR</a></h4> -->
+        </div>
+        <div class="eight columns">
+          <p>The jobless rate in Idaho is declining, but thousands in the Gem State remain unemployed following the 2008 financial crisis. Use this tool to track unemployment by county over time, read personal accounts of Idahoans still seeking work, and please <a href="#" class="btn share-modal" data-controls-modal="share-modal" data-backdrop="true">tell us your story</a>. <a href="http://stateimpact.npr.org/idaho/work-in-progress-about-the-data/" class="btn">About this data.</a></p>
+          <ul class="sharing">
+            <li><a href="https://twitter.com/share" class="twitter-share-button" data-count="none" data-via="NPRStateImpact">Tweet</a></li>
+            <li><div class="fb-like" data-width="150" data-layout="button_count" data-show-faces="false"></div></li>
+          </ul>
+        </div>
+      </header>
+      
+      <div class="four columns">
+        <section class="profiles">
+          <h2 class="section-hed">IDAHO JOBLESS STORIES</h2>
+          <p>Read their stories. <a href="#" class="btn share-modal" data-controls-modal="share-modal" data-backdrop="true">Tell us yours</a>.</p>
+          <div id="stories"></div>
+        </section>
+        <div class="clearfix"></div>
+        <section class="coverage">
+           <h2 class="section-hed">More Unemployment Coverage</h2>
+           <ul id="headlines"></ul>
+        </section>
+      </div>
+      <section class="graphic eight columns">
+        <h2 class="section-hed">Unemployment Rate</h2>
+        <div id="slider"></div>
+        <div id="chart"></div>
+
+        <div id="map" class="four columns alpha" style="height: 469px; background: #ddd;">
+          <div class="legend">
+            <p class="instructions">Click bubbles for county data.</p>
+            <p><span class="key"></span> Unemployment Rate</p>         
+          </div>  
+        </div>
+
+        <div class="data four columns omega">
+          <table id="comparison"></table>
+        </div>
+         
+        <div class="clearfix"></div>
+        <div class="discussion clearfix eight columns alpha omega">
+          <h2 class="section-hed">WHAT DID YOU FIND IN THIS INTERACTIVE?</h2>
+          <div id="disqus_thread"></div>
+          <script type="text/javascript">
+              /*
+              var disqus_developer = 1;
+              var disqus_shortname = 'stateimpactid'; // required: replace example with your forum shortname
+              (function() {
+                  var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                  dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+                  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+              })();
+              */
+          </script>
+          <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+        </div>
+
+      </section>
+
+
+
+    </article>
+
+<footer class="container">
+    <div class="project-info seven columns alpha">
+      <p>Source: U.S. Department of Labor, Idaho Department of Labor <br><a href="http://stateimpact.npr.org/idaho/work-in-progress-about-the-data/">Read more about the data</a>.</p>
+            
+    </div>
+    <div class="boilerplate five columns omega">
+      <p class="partnership">A reporting project of local public media and <a class="nprlogo" href="http://npr.org" title="Visit npr.org">NPR</a></p> 
+      <p class="copyright">© 2011 NPR | <a href="http://www.npr.org/about/termsofuse.html">Terms Of Use</a> | <a href="http://www.npr.org/about/privacypolicy.html">Privacy Policy</a></p> 
+  </div>
+</footer>
+
+<div id="share-modal" class="modal hide fade">
+  <div class="modal-header">
+    <a class="close">Close</a>
+    <h2>Share your story</h2>
+  </div>
+  <div class="modal-body">
+    <p>We want to know about your place in Idaho’s employment landscape. Tell us your story of losing a job, finding a job, or coping in between via email (<a href="mailto:unemployment@stateimpact.org">unemployment@stateimpact.org</a>) or voicemail <strong>(208-278-6154)</strong>.</p>
+
+    <p>Our goal is to share your stories to inspire and inform our audience. Please provide your name, plus an email address or phone number so we can contact you. We won’t publish your information without your consent.</p>
+
+    <p>These Idaho residents <a href="http://stateimpact.npr.org/idaho/tag/jobless-in-idaho/">already shared their stories</a>. We'd love to hear yours!</p>
+  </div>
+</div>
+
+	<!-- JS
+	================================================== -->
+	<script id="story-template" type="text/x-jst">
+	<div class="profile">
+      <% if (thumbnail) { %>
+      <a href="<%= url %>"><img src="<%= thumbnail %>" width="100" height="100"></a>
+      <% } %>
+      <h3><a href="<%= url %>"><%= title.replace(/Jobless in Idaho: /i, '') %></a></h3>
+      <p><%= excerpt %></p>
+    </div>
+	</script>
+
+  <script id="headline-template" type="text/x-jst">
+  <li><a href="<%= url %>"><%= title %></a></li>
+  </script>
+	
+	<script id="table-template" type="text/x-jst">
+	<thead>
+      <tr>
+        <th colspan="2"><%= date.toString('MMMM yyyy') %></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="section rate">
+        <th colspan="2">Unemployment Rate <a data-placement="above" data-content='Portion of civilian workforce that is not employed with paid, non-farm jobs. Data are seasonally adjusted.' href="#" class="btn danger" rel="popover">info</a></th>
+      </tr>
+      <tr>
+        <th>Idaho</th>
+        <th><%= area %></th>
+      </tr>
+      <tr class="rate">
+        <td><%= idaho.unemploymentrate %>%</td>
+        <td><%= unemploymentrate %>%</td>
+      </tr>
+      <tr class="section workforce">
+        <th colspan="2">Total Workforce <a data-placement="above" data-content='&ldquo;Workforce&rdquo; refers to the number of Idahoans who are actively seeking jobs. Some may be underemployed or have stopped looking.' href="#" class="btn danger" rel="popover">info</a></th>
+      </tr>
+      <tr>
+        <th>Idaho</th>
+        <th><%= area %></th>
+      </tr>
+      <tr>
+        <td><%= intcomma(idaho.laborforce) %></td>
+        <td><%= intcomma(laborforce) %></td>
+      </tr>
+      <tr class="section unemployed">
+        <th colspan="2">Unemployed <a data-placement="above" title="Unemployed" href="#" class="btn danger" rel="popover" data-content='Number of civilians in workforce that are not employed with paid, non-farm jobs. Data are seasonally adjusted.'>info</a></th>
+      </tr>
+      <tr>
+        <th>Idaho</th>
+        <th><%= area %></th>
+      </tr>
+      <tr>
+        <td><%= intcomma(idaho.unemployment) %></td>
+        <td><%= intcomma(unemployment) %></td>
+      </tr>
+    </tbody>
+	</script>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+	<!--
+	<script src="js/jquery-ui-1.8.17.custom.js"></script>
+	<script src="js/underscore-min.js"></script>
+	<script src="js/backbone-min.js"></script>
+	<script src="js/leaflet/leaflet.js"></script>
+	<script src="js/wax/dist/wax.leaf.min.js"></script>
+	<script src="js/date.js"></script>
+	<script src="js/highcharts.js"></script>
+    <script src="js/bootstrap-twipsy.js"></script>
+    <script src="js/bootstrap-modal.js"></script>
+    <script src="js/bootstrap-popover.js"></script>
+    <script src="js/app.js"></script>
+    -->
+    <script src="public/assets/app.js"></script>
+    <script>    
+    window.unemploymentrates.bind('reset', function() {
+        window.hichart.plot();
+    });
+    
+    window.app.bind('change:county', function(county) {
+        window.hichart.plotCounty(county);
+        window.umap.setActive(county);
+    });
+    
+    window.app.bind('change:date', function(date) {
+        window.umap.plot();
+    });
+    window.counties.reset({{ counties|safe }});
+    window.unemploymentrates.reset({{ unemployment|safe }});
+
+    /***
+    $.getJSON('data/counties.json', function(data) {
+        window.counties.reset(data);
+    });
+    
+    $.getJSON('data/unemployment.json', function(data) {
+        window.unemploymentrates.reset(data);
+    });
+    ***/
+    $.ajax({
+        url: 'http://stateimpact.npr.org/idaho/api/get_tag_posts/?slug=jobless-profile&count=5',
+        dataType: 'jsonp',
+        success: function(resp) {
+            var template = _.template($('#story-template').html()),
+                root = $('#stories');
+            
+            _.each(resp.posts, function(post, i) {
+                root.append(template(post));
+            });
+        }
+    });
+    $.ajax({
+        url: 'http://stateimpact.npr.org/idaho/api/get_tag_posts/?slug=unemployment&count=5',
+        dataType: 'jsonp',
+        success: function(resp) {
+            var template = _.template($('#headline-template').html()),
+                root = $('#headlines');
+            
+            _.each(resp.posts, function(post, i) {
+                root.append(template(post));
+            });
+        }
+    });
+    </script>
+    <!-- sharing -->
+    <script type="text/javascript" src="//platform.twitter.com/widgets.js"></script>
+    <script>(function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) {return;}
+      js = d.createElement(s); js.id = id;
+      js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
+    <div id="fb-root"></div>
+	
+	<!-- analytics -->
+	<script type="text/javascript">
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-24211638-1']);
+      _gaq.push(['_trackPageview']);
+      _gaq.push(['_setAccount', 'UA-25233768-1']);
+      _gaq.push(['_trackPageview']);
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
+    <script type="text/javascript">
+    var _sf_async_config={uid:26060,domain:"stateimpact.npr.org"};
+    (function(){
+      function loadChartbeat() {
+        window._sf_endpt=(new Date()).getTime();
+        var e = document.createElement('script');
+        e.setAttribute('language', 'javascript');
+        e.setAttribute('type', 'text/javascript');
+        e.setAttribute('src',
+           (("https:" == document.location.protocol) ? "https://a248.e.akamai.net/chartbeat.download.akamai.com/102508/" : "http://static.chartbeat.com/") +
+           "js/chartbeat.js");
+        document.body.appendChild(e);
+      }
+      var oldonload = window.onload;
+      window.onload = (typeof window.onload != 'function') ?
+         loadChartbeat : function() { oldonload(); loadChartbeat(); };
+    })();
+    </script>
+    <script src="js/events.js"></script>
+<!-- End Document
+================================================== -->
+</body>
+</html>
