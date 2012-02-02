@@ -105,7 +105,6 @@
                 county: county.get('name')
             });
             marker.on('click', function(e) {
-                alert('click');
                 var route = [rate.get('year'), rate.get('month'), county.get('name')];
                 window.app.navigate(route.join('/'), true);
             });
