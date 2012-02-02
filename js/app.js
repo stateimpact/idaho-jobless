@@ -839,10 +839,8 @@
     
     var disqus_developer = 1;
     var disqus_shortname = 'stateimpactid'; // required: replace example with your forum shortname
-    setTimeout(function() {
-          if (jQuery.browser.msie) return;
-          var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-          dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
-          (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    }, 1000);   
+    if (jQuery.browser.msie) return;
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
 })(window.jQuery);
