@@ -221,7 +221,7 @@
     <script src="js/app.js"></script>
     -->
     <script src="public/assets/app.js"></script>
-    <script>    
+    <script>
     window.unemploymentrates.bind('reset', function() {
         window.hichart.plot();
     });
@@ -234,8 +234,6 @@
     window.app.bind('change:date', function(date) {
         window.umap.plot();
     });
-    window.counties.reset({{ counties|safe }});
-    window.unemploymentrates.reset({{ unemployment|safe }});
 
     /***
     $.getJSON('data/counties.json', function(data) {
@@ -270,6 +268,9 @@
             });
         }
     });
+    window.counties.reset({{ counties|safe }});
+    window.unemploymentrates.reset({{ unemployment|safe }});
+    
     </script>
     <!-- sharing -->
     <script type="text/javascript" src="//platform.twitter.com/widgets.js"></script>
