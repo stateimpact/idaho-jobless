@@ -344,7 +344,7 @@
             _.bindAll(this);
             var view = this;
             this.months = this.collection.getCountyMonths();
-            this.slider = $(this.el).slider(this.slideOpts());            
+            this.slider = $(this.el).slider(this.slideOpts());        
             this.collection.bind('reset', function(models) {
                 // reset options when the collection changes
                 view.months = view.collection.getCountyMonths();

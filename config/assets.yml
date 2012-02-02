@@ -7,6 +7,7 @@ javascripts:
     app:
         - js/json2.js
         - js/jquery-ui-1.8.17.custom.js
+        - js/jquery.ui.touch-punch.js
         - js/underscore-min.js
         - js/backbone-min.js
         - js/leaflet/leaflet.js
