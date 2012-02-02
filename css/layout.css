@@ -68,7 +68,7 @@ article .section-hed { font: 700 24px/1.1 proxima-nova-extra-condensed,sans-seri
 #map .legend .key { display: inline-block; border-radius: 30px; height: 10px; width: 10px; background: #d8472b; background: rgba(216, 71, 43, .7) }
 .graphic { position: relative; }
 .graphic h2.section-hed { margin-bottom: 0; }
-#slider { position: absolute; z-index: 10; top: 118px; width: 620px; }
+#slider { position: absolute; z-index: 10; top: 118px; width: 620px; height: 20px; }
 #slider a { position: absolute; display: block; top: 0; height: 19px; width: 9px; background: url(../img/slider.png) no-repeat; }
 .graphic h3 { font-size: 14px; text-transform: uppercase; font-weight: normal; color: #999; line-height: 1; }
 #chart { height: 120px; margin-bottom: 10px; }
