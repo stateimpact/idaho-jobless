@@ -7,6 +7,10 @@ from django.utils import encoding
 here = os.path.abspath(os.path.dirname(__file__))
 _f = lambda fn: os.path.join(here, fn)
 
+def build():
+    render()
+    local('jammit')
+
 def render():
     with open(_f('config/index.jinja.html')) as f:
         template = jinja2.Template(encoding.smart_unicode(f.read()))
