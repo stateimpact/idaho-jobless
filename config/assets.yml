@@ -5,6 +5,7 @@ gzip_assets: off
 
 javascripts:
     app:
+        - js/json2.js
         - js/jquery-ui-1.8.17.custom.js
         - js/underscore-min.js
         - js/backbone-min.js
