@@ -259,6 +259,7 @@
             });
             this.markers = new L.FeatureGroup();
             this.map.addLayer(this.markers);
+            this.map.dragging.disable();
             return this;
         },
         
