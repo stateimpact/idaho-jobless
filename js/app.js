@@ -848,3 +848,9 @@
     dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
 })(window.jQuery);
+// Fixes webkit legend bug
+$.load(function () {
+    if (jQuery.browser.webkit){
+       hichart.chart.legend.renderLegend();
+    };
+});
