@@ -41,6 +41,7 @@ article header .subhead { font-size: 18px; line-height: 1.2; font-weight: 600; c
 		.intro .credit a:hover { color: #BF3119; }
 		.nprlogo { display: inline-block; text-indent: -999em; width: 51px; height: 17px; background: url(../img/npr-transparent.png) no-repeat; margin: 0 0 0 3px; }
 article header p { font-size: 18px; text-align: left; }
+article header .note { font-size: 14px; color: #999; }
 article header p a { color: #BF3119; text-decoration: none; }
 article header p a:hover { text-decoration: underline; color: #BF3119; }
 article .intro ul li { float: left; margin-right: 10px; text-align: left; }
