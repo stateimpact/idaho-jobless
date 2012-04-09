@@ -4,7 +4,7 @@
 <!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
 <!--[if (gte IE 9)|!(IE)]><!--><html lang="en"> <!--<![endif]-->
 <head>
-    <script type="text/javascript">var _sf_startpt=(new Date()).getTime()</script>
+  <script type="text/javascript">var _sf_startpt=(new Date()).getTime()</script>
 	<!-- Basic Page Needs
   ================================================== -->
 	<meta charset="utf-8">
@@ -14,10 +14,10 @@
 	<meta name="description" content="Tracking Unemployment in Idaho">
 	<meta name="author" content="NPR StateImpact Idaho">
     
-    <!-- opengraph -->
-    <meta property="og:title" content="Work in Progress: Tracking Unemployment in Idaho">
-    <meta property="og:image" content="http://stateimpact.npr.org/maps/idaho/unemployment/img/idaho-jobless.png">
-    <meta property="og:description" content="The jobless rate in Idaho is declining, but thousands in the Gem State remain unemployed following the 2008 financial crisis. Use this tool to track unemployment by county over time, read personal accounts of Idahoans still seeking work, and please tell us your story.">
+  <!-- opengraph -->
+  <meta property="og:title" content="Work in Progress: Tracking Unemployment in Idaho">
+  <meta property="og:image" content="http://stateimpact.npr.org/maps/idaho/unemployment/img/idaho-jobless.png">
+  <meta property="og:description" content="The jobless rate in Idaho is declining, but thousands in the Gem State remain unemployed following the 2008 financial crisis. Use this tool to track unemployment by county over time, read personal accounts of Idahoans still seeking work, and please tell us your story.">
 
 	<!-- Mobile Specific Metas
   ================================================== -->
@@ -64,7 +64,6 @@
         </div>
         <div class="eight columns">
           <p>The jobless rate in Idaho is declining, but thousands in the Gem State remain unemployed following the 2008 financial crisis. Use this tool to track unemployment by county over time, read personal accounts of Idahoans still seeking work, and please <a href="#" class="btn share-modal" data-controls-modal="share-modal" data-backdrop="true">tell us your story</a>. <a href="http://stateimpact.npr.org/idaho/work-in-progress-about-the-data/" class="btn">About this data.</a></p>
-          <p class="note"><em>EDITOR'S NOTE: The Idaho Department of Labor won't update monthly unemployment data until March 23.  In January and February the department is focused on &ldquo;annual benchmarking,&rdquo; a process of re-estimating and smoothing the data for accuracy and consistency. The release of unemployment data will resume its normal schedule by April.</em></p>
           <ul class="sharing">
             <li><a href="https://twitter.com/share" class="twitter-share-button" data-count="horizontal" data-text="Tracking Unemployment in Idaho" data-via="StateImpactID">Tweet</a></li>
             <li><div class="fb-like" data-width="150" data-layout="button_count" data-show-faces="false"></div></li>
@@ -177,7 +176,7 @@
       </tr>
       <tr>
         <th>Idaho</th>
-        <th><%= area %></th>
+        <th><%= areaname %></th>
       </tr>
       <tr class="rate">
         <td><%= idaho.unemploymentrate %>%</td>
@@ -188,7 +187,7 @@
       </tr>
       <tr>
         <th>Idaho</th>
-        <th><%= area %></th>
+        <th><%= areaname %></th>
       </tr>
       <tr>
         <td><%= intcomma(idaho.laborforce) %></td>
@@ -199,7 +198,7 @@
       </tr>
       <tr>
         <th>Idaho</th>
-        <th><%= area %></th>
+        <th><%= areaname %></th>
       </tr>
       <tr>
         <td><%= intcomma(idaho.unemployment) %></td>
@@ -207,22 +206,23 @@
       </tr>
     </tbody>
 	</script>
-	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-	<!--
-	<script src="js/jquery-ui-1.8.17.custom.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+	{% if debug %}
+  <script src="js/jquery-ui-1.8.17.custom.js"></script>
   <script src="js/jquery.ui.touch-punch.js"></script>
-	<script src="js/underscore-min.js"></script>
-	<script src="js/backbone-min.js"></script>
-	<script src="js/leaflet/leaflet.js"></script>
-	<script src="js/wax/dist/wax.leaf.min.js"></script>
-	<script src="js/date.js"></script>
-	<script src="js/highcharts.js"></script>
-    <script src="js/bootstrap-twipsy.js"></script>
-    <script src="js/bootstrap-modal.js"></script>
-    <script src="js/bootstrap-popover.js"></script>
-    <script src="js/app.js"></script>
-    -->
-    <script src="public/assets/app.js"></script>
+  <script src="js/underscore-min.js"></script>
+  <script src="js/backbone-min.js"></script>
+  <script src="js/leaflet/leaflet.js"></script>
+  <script src="js/wax/dist/wax.leaf.min.js"></script>
+  <script src="js/date.js"></script>
+  <script src="js/highcharts.js"></script>
+  <script src="js/bootstrap-twipsy.js"></script>
+  <script src="js/bootstrap-modal.js"></script>
+  <script src="js/bootstrap-popover.js"></script>
+  <script src="js/app.js"></script>
+  {% else %}
+  <script src="public/assets/app.js"></script>
+  {% endif %}
     <script>
     window.unemploymentrates.bind('reset', function() {
         window.hichart.plot();

@@ -7,23 +7,28 @@ from django.utils import encoding
 here = os.path.abspath(os.path.dirname(__file__))
 _f = lambda fn: os.path.join(here, fn)
 
+env.unemployment = _f('data/unemployment-2012-04-09.json')
+env.counties = _f('data/counties.json')
+env.template = _f('config/index.jinja.html')
+
 def build():
     render()
     local('jammit')
 
-def render():
-    with open(_f('config/index.jinja.html')) as f:
+def render(debug=False):
+    with open(env.template) as f:
         template = jinja2.Template(encoding.smart_unicode(f.read()))
     
-    with open(_f('data/unemployment.json')) as f:
+    with open(env.unemployment) as f:
         unemployment = json.load(f)
     
-    with open(_f('data/counties.json')) as f:
+    with open(env.counties) as f:
         counties = json.load(f)
     
     context = {
         'counties': json.dumps(counties),
-        'unemployment': json.dumps(unemployment)
+        'unemployment': json.dumps(unemployment),
+        'debug': debug
     }
     rendered = template.render(context)
     

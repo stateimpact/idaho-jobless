@@ -84,6 +84,16 @@
             this.normalize(attributes);
             return this;
         },
+
+        defaults: {
+            county: null,
+            latitude: null,
+            longitude: null,
+            point: null,
+            fips: null,
+            preliminary: false,
+            adjusted: true
+        },
         
         getMarker: function(options) {
             if (!this.has('point')) return null;
@@ -114,24 +124,36 @@
         normalize: function(attributes) {
             // bulk normalizing
             var changes = {};
+            var county = counties.find(function(county) {
+                return county.get('formalname') === attributes.areaname;
+            });
+            if (county) {
+                changes.county = county;
+                changes.point = county.get('point');
+                changes.latitude = county.get('latitude');
+                changes.longitude = county.get('longitude');
+                changes.fips = county.get('fips');
+            }
+
+            /***
             if (attributes.latitude && attributes.longitude) {
                 var point = new L.LatLng(parseFloat(attributes.latitude), parseFloat(attributes.longitude));
                 changes.point = point;
                 changes.latitude = parseFloat(attributes.latitude);
                 changes.longitude = parseFloat(attributes.longitude);
             }
-            
+            ***/
             if (attributes.year && attributes.month) {
                 var date = new Date(attributes.year, MONTHS[attributes.month.toLowerCase()]);
                 changes.date = date;
                 changes.year = Number(attributes.year);
             }
             
-            if (attributes.preliminary) {
+            if (attributes.preliminary && !_.isBoolean(attributes.preliminary)) {
                 changes.preliminary = YESNO[attributes.preliminary.toLowerCase()];
             }
             
-            if (attributes.adjusted) {
+            if (attributes.adjusted && !_.isBoolean(attributes.preliminary)) {
                 changes.adjusted = YESNO[attributes.adjusted.toLowerCase()];
             }
             
@@ -185,7 +207,7 @@
         
         getArea: function(area) {
             return this.filter(function(rate) {
-                return (rate.get('area') === area && rate.get('adjusted') && !rate.get('preliminary'));
+                return (rate.get('areaname') === area && rate.get('adjusted') && !rate.get('preliminary'));
             });
         },
         
@@ -206,7 +228,7 @@
             county = county || app.getCounty();
             if (!county) return;
             return this.filter(function(rate) {
-                return (rate.get('area') === county.get('formalname') && rate.get('adjusted') && !rate.get('preliminary'));
+                return (rate.get('areaname') === county.get('formalname') && rate.get('adjusted') && !rate.get('preliminary'));
             });
         },
         
@@ -238,7 +260,7 @@
         
         getRate: function(year, month, county) {
             return this.find(function(rate) {
-                return (rate.get('year') == year && rate.get('month') == month && rate.get('area') == county + ' County' && rate.get('adjusted') && !rate.get('preliminary'));
+                return (rate.get('year') == year && rate.get('month') == month && rate.get('areaname') == county + ' County' && rate.get('adjusted') && !rate.get('preliminary'));
             });
         }
     });
@@ -692,7 +714,7 @@
             if (!rate) return;
             var idaho = this.collection.find(function(r) {
                 if (!r) return;
-                return (r.get('area') === 'Idaho' && r.get('adjusted') && !r.get('preliminary') && _.isEqual(r.get('date'), rate.get('date')));
+                return (r.get('areaname') === 'Idaho' && r.get('adjusted') && !r.get('preliminary') && _.isEqual(r.get('date'), rate.get('date')));
             });
             var context = rate.toJSON();
             context.idaho = idaho.toJSON();
@@ -700,7 +722,7 @@
             $('.data a')
                 .popover()
                 .click(function(e) {
-                    e.preventDefault()
+                    e.preventDefault();
                 });
         }
     });
@@ -729,12 +751,12 @@
             var url, rate;
             if (this.collection.length) {
                 rate = this.getDefaultRate();
-                url = this.getUrl(rate.get('year'), rate.get('month'), rate.get('area').replace(' County', ''));
+                url = this.getUrl(rate.get('year'), rate.get('month'), rate.get('areaname').replace(' County', ''));
                 this.navigate(url, true);
             } else {
                 this.collection.bind('reset', function(models) {
                     rate = this.getDefaultRate();
-                    url = this.getUrl(rate.get('year'), rate.get('month'), rate.get('area').replace(' County', ''));
+                    url = this.getUrl(rate.get('year'), rate.get('month'), rate.get('areaname').replace(' County', ''));
                     this.navigate(url, true);
                 }, this);
             }
@@ -790,7 +812,7 @@
         getDefaultRate: function() {
             // return the most recent rate for DEFAULT_AREA
             return this.collection.chain().filter(function(rate) {
-                return (rate.get('area') == DEFAULT_AREA && rate.get('adjusted') && !rate.get('preliminary'));
+                return (rate.get('areaname') == DEFAULT_AREA && rate.get('adjusted') && !rate.get('preliminary'));
             }).last().value();
         },
         
@@ -852,5 +874,5 @@
 $(window).load(function () {
     if (jQuery.browser.webkit){
        hichart.chart.legend.renderLegend();
-    };
+    }
 });
