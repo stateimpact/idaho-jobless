@@ -116,7 +116,7 @@
             });
             marker.on('click', function(e) {
                 var route = [rate.get('year'), rate.get('month'), county.get('name')];
-                window.app.navigate(route.join('/'), true);
+                window.app.navigate(route.join('/'), {trigger: true, replace: true});
             });
             return marker;
         },
@@ -289,14 +289,14 @@
             var date = this.currentMonth();
             date.next().month(); // increment the date in place
             var url = window.app.getUrl(date.getFullYear(), MONTH_NAMES[date.getMonth()], this.county);
-            window.app.navigate(url, true);
+            window.app.navigate(url, {trigger: true, replace: true});
         },
         
         previousMonth: function() {
             var date = this.currentMonth();
             date.previous().month(); // increment the date in place
             var url = window.app.getUrl(date.getFullYear(), MONTH_NAMES[date.getMonth()], this.county);
-            window.app.navigate(url, true);
+            window.app.navigate(url, {trigger: true, replace: true});
         },
         
         currentMonth: function() {
@@ -396,7 +396,7 @@
                     county = location.hash.split('/')[2],
                     url = app.getUrl(date.getFullYear(), date.toString('MMMM'), county);
                 display.text(date.toString('MMM yyyy'));
-                app.navigate(url, true);
+                app.navigate(url, {trigger: true, replace: true});
             });
                         
             return this;
@@ -678,7 +678,7 @@
                                 var date = p.point.category,
                                     county = location.hash.split('/')[2],
                                     url = app.getUrl(date.split(' ')[1], date.split(' ')[0], county);
-                                app.navigate(url, true);
+                                app.navigate(url, {trigger: true, replace: true});
                             }
                         }
                     }
@@ -752,12 +752,12 @@
             if (this.collection.length) {
                 rate = this.getDefaultRate();
                 url = this.getUrl(rate.get('year'), rate.get('month'), rate.get('areaname').replace(' County', ''));
-                this.navigate(url, true);
+                this.navigate(url, {trigger: true, replace: true});
             } else {
                 this.collection.bind('reset', function(models) {
                     rate = this.getDefaultRate();
                     url = this.getUrl(rate.get('year'), rate.get('month'), rate.get('areaname').replace(' County', ''));
-                    this.navigate(url, true);
+                    this.navigate(url, {trigger: true, replace: true});
                 }, this);
             }
         },
