@@ -26,7 +26,7 @@ Select all available areas. Include years 2005 to the present (unless you really
 
 Change the column headers to lowercase, change "period" to "month" and save the CSV file to `data/unemployment-YEAR-MONTH-DAY.csv`, using the date you downloaded the data. Filter out rows that are preliminary or not adjusted. You can then remove those columns, since all figures will be adjusted. I use [csvkit][] for this, like so (assuming the original file is called `unemployment.csv`:
 
-    $ cat unemployment.csv | csvgrep -c preliminary -m No | csvgrep -c adjusted -m Yes | csvcut -c year,month,areaname,laborforce,employment,unemnployment,unemploymentrate | csvjson > unemployment.json
+    $ cat unemployment.csv | csvgrep -c preliminary -m No | csvgrep -c adjusted -m Yes | csvcut -c year,month,areaname,laborforce,employment,unemployment,unemploymentrate | csvjson > unemployment.json
 
 This process may require minor adjustment as Idaho Department of Labor changes its data structure. Be prepared to change names or functions. Best to do this on a branch.
 

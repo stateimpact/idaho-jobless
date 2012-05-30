@@ -7,7 +7,7 @@ from django.utils import encoding
 here = os.path.abspath(os.path.dirname(__file__))
 _f = lambda fn: os.path.join(here, fn)
 
-env.unemployment = _f('data/unemployment-2012-04-09.json')
+env.unemployment = _f('data/unemployment-2012-05-30.json')
 env.counties = _f('data/counties.json')
 env.template = _f('config/index.jinja.html')
 
